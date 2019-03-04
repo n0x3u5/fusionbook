@@ -4,7 +4,6 @@ import { string } from 'prop-types'
 const Chapter = ({ chapterName = '' }) => (
   <li>
     {chapterName}
-    <div>Hello</div>
   </li>
 )
 
