@@ -31,7 +31,7 @@ legendItemStory.addChapter(
 const divStory = new Story('Div Element');
 
 // Adds a "with 50% opacity" chapter to the story
-legendItemStory.addChapter(
+divStory.addChapter(
   'with 50% opacity',
   story => {
     const divElement = document.createElement('div');

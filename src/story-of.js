@@ -1,4 +1,4 @@
-import FusionStory from './components/fresco/fusion-story'
+import FusionStory from './client/components/fresco/fusion-story'
 
 const storyOf = (name, Component) => {
   const story = new FusionStory()
