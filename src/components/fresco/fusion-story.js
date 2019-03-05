@@ -27,7 +27,7 @@ class FusionStory extends SmartRenderer {
   draw () {
     const animationManager = this.getChildren('animationManager')[0]
     this.addToEnv('animationManager', animationManager)
-    animationManager.addToEnv('paper', Raphael('container', 600, 600))
+    animationManager.addToEnv('paper', Raphael('fusionbook-root', 600, 600))
   }
 }
 
