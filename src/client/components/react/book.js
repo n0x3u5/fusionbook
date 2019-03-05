@@ -3,7 +3,7 @@ import { array } from 'prop-types'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Contents from './contents'
+import Contents from './table-of-contents'
 
 const Book = ({ stories = [] }) => {
   return (
