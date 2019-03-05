@@ -24,7 +24,7 @@ legendItemStory.addChapter(
 // Adds a "with background" chapter to the story
 legendItemStory.addChapter(
   'with background',
-  () => story.attachChild(LegendItem).configure({ showBackground: true })
+  story => story.attachChild(LegendItem).configure({ showBackground: true })
 );
 
 // Creates a story named "Div Element"
