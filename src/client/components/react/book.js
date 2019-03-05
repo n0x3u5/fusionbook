@@ -1,14 +1,19 @@
 import React from 'react'
-import Story from './story'
 import { array } from 'prop-types'
-
-const createStory = (story = {}, idx) => (
-  <Story key={idx} storyName={story.name} chapters={story.chapters} />
-)
-const createStories = stories => stories.map(createStory)
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Contents from './contents'
 
 const Book = ({ stories = [] }) => {
-  return <ul>{createStories(stories)}</ul>
+  return (
+    <Container>
+      <Row>
+        <Col sm={2}><Contents stories={stories}/></Col>
+        <Col sm={8}></Col>
+      </Row>
+    </Container>
+  )
 }
 
 Book.propTypes = {
