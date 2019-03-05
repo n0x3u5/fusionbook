@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "fusionbook": "./src/cli/index.mjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/n0x3u5/fusionbook.git"
