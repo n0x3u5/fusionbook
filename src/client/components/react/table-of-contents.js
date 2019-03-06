@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { array } from 'prop-types'
 import SeacrhBar from './search-bar'
-import { Accordion, Icon } from 'semantic-ui-react'
+import { Accordion, Icon, List } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
   state = { activeIndex: -1 }
@@ -18,9 +18,9 @@ class TableOfContents extends Component {
     let { stories } = this.props
     let createChapters = (chapters) => {
       return chapters.map((chapter, id) => (
-        <li key={id}>
+        <List.Item key={id}>
           {chapter.name}
-        </li>
+        </List.Item>
       ))
     }
 
@@ -31,7 +31,9 @@ class TableOfContents extends Component {
           {story.name}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === idx}>
-          {createChapters(story.chapters)}
+          <List>
+            {createChapters(story.chapters)}
+          </List>
         </Accordion.Content>
       </React.Fragment>
     ))
