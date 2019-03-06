@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.css'
-
+import 'semantic-ui-css/semantic.min.css'
 import Book from './components/react/book'
 // temporary changes to see the structure
 const stories = [
@@ -13,4 +12,4 @@ const stories = [
   }
 ]
 
-render(<Book stories={stories}/>, document.querySelector('#container'))
+render(<Book stories={stories}/>, document.querySelector('#fusionbook-root'))
