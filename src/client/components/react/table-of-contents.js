@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Story from './story'
 import { array } from 'prop-types'
 import SeacrhBar from './search-bar'
-import { Accordion } from 'semantic-ui-react'
+import { Accordion, Icon } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
   state = { activeIndex: -1 }
@@ -17,10 +16,24 @@ class TableOfContents extends Component {
   createStories () {
     let { activeIndex } = this.state
     let { stories } = this.props
+    let createChapters = (chapters) => {
+      return chapters.map((chapter, id) => (
+        <li key={id}>
+          {chapter.name}
+        </li>
+      ))
+    }
 
     return stories.map((story = {}, idx) => (
-      <Story key={idx} storyName={story.name} chapters={story.chapters}
-        index={idx} activeIndex={activeIndex} handleClick={this.handleClick} />
+      <React.Fragment key={idx}>
+        <Accordion.Title active={activeIndex === idx} index={idx} onClick={this.handleClick}>
+          <Icon name='dropdown' />
+          {story.name}
+        </Accordion.Title>
+        <Accordion.Content active={activeIndex === idx}>
+          {createChapters(story.chapters)}
+        </Accordion.Content>
+      </React.Fragment>
     ))
   }
   render () {
