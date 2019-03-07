@@ -6,10 +6,10 @@ import TableOfContents from './table-of-contents'
 const Book = ({ stories = [] }) => {
   return (
     <Grid columns={2}>
-      <Grid.Column width={3}>
+      <Grid.Column width={4}>
         <TableOfContents stories={stories}/>
       </Grid.Column>
-      <Grid.Column width={13}>
+      <Grid.Column width={12}>
       </Grid.Column>
     </Grid>
   )
