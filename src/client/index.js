@@ -5,9 +5,37 @@ import Book from './components/react/book'
 // temporary changes to see the structure
 const stories = [
   {
-    name: 'hello',
+    name: 'Legend',
     chapters: [
-      'yo'
+      {
+        name: 'default',
+        content: () => {
+          console.log('hello')
+        }
+      },
+      {
+        name: 'with background',
+        content: () => {
+          console.log('hello')
+        }
+      }
+    ]
+  },
+  {
+    name: 'Caption',
+    chapters: [
+      {
+        name: 'default',
+        content: () => {
+          console.log('hello')
+        }
+      },
+      {
+        name: 'with background',
+        content: () => {
+          console.log('hello')
+        }
+      }
     ]
   }
 ]
