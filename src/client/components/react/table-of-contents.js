@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { array } from 'prop-types'
 import SeacrhBar from './search-bar'
 import { Accordion, Icon, List } from 'semantic-ui-react'
@@ -33,7 +33,7 @@ class TableOfContents extends Component {
     }
 
     return stories.map((story = {}, idx) => (
-      <React.Fragment key={idx}>
+      <Fragment key={idx}>
         <Accordion.Title active={activeIndex === idx} index={idx} onClick={this.handleClick}>
           <Icon name='dropdown' />
           {story.name}
@@ -43,7 +43,7 @@ class TableOfContents extends Component {
             {createChapters(story.chapters)}
           </List>
         </Accordion.Content>
-      </React.Fragment>
+      </Fragment>
     ))
   }
   render () {
