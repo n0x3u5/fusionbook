@@ -18,7 +18,7 @@ class TableOfContents extends Component {
     let { stories } = this.props
     let createChapters = (chapters) => {
       return chapters.map((chapter, id) => (
-        <List.Item key={id}>
+        <List.Item key={id} onClick={chapter.content}>
           {chapter.name}
         </List.Item>
       ))

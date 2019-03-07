@@ -8,10 +8,16 @@ const stories = [
     name: 'Legend',
     chapters: [
       {
-        name: 'default'
+        name: 'default',
+        content: () => {
+          console.log('hello')
+        }
       },
       {
-        name: 'with background'
+        name: 'with background',
+        content: () => {
+          console.log('hello')
+        }
       }
     ]
   },
@@ -19,10 +25,16 @@ const stories = [
     name: 'Caption',
     chapters: [
       {
-        name: 'default'
+        name: 'default',
+        content: () => {
+          console.log('hello')
+        }
       },
       {
-        name: 'with background'
+        name: 'with background',
+        content: () => {
+          console.log('hello')
+        }
       }
     ]
   }
