@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Search } from 'semantic-ui-react'
 import { array } from 'prop-types'
 import { debounce } from 'lodash-es'
-import './search.css'
 
 function escapeRegExp (text) {
   return text.replace(/[-[\]{}()*+?.,\\/^$|#\s]/g, '\\$&')
