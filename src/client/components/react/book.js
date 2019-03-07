@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { array } from 'prop-types'
 import TableOfContents from './table-of-contents'
-import Footer from './content'
+import Content from './content'
 import './book.css'
 
 class Book extends Component {
@@ -36,8 +36,8 @@ class Book extends Component {
         <div className="content">
           <div className="main"></div>
           <div className="footer">
-            <Footer tabs={contentMeta}>
-            </Footer>
+            <Content tabs={contentMeta}>
+            </Content>
           </div>
         </div>
       </div>
