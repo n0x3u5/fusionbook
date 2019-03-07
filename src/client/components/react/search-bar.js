@@ -20,7 +20,7 @@ class SeacrhBar extends Component {
 
     this.handleResultSelect = (e, { result }) => {
       this.setState({ value: result.title })
-      this.props.handleClick(result.index)
+      this.props.setActiveIndex(result.index)
     }
 
     this.handleSearch = debounce(value => {
@@ -70,7 +70,7 @@ class SeacrhBar extends Component {
 
 SeacrhBar.propTypes = {
   stories: array,
-  handleClick: func
+  setActiveIndex: func
 }
 
 export default SeacrhBar

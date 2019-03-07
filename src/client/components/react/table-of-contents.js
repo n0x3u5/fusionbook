@@ -12,9 +12,9 @@ class TableOfContents extends Component {
       const { activeIndex } = this.state
       const newIndex = activeIndex === index ? -1 : index
 
-      this.setState({ activeIndex: newIndex })
+      this.setActiveIndex(newIndex)
     }
-    this.serachResultClick = index => {
+    this.setActiveIndex = index => {
       this.setState({
         activeIndex: index
       })
@@ -55,7 +55,7 @@ class TableOfContents extends Component {
           return {
             title: name
           }
-        })} handleClick={this.serachResultClick}/>
+        })} setActiveIndex={this.setActiveIndex}/>
         <Accordion>
           {this.createStories()}
         </Accordion>
