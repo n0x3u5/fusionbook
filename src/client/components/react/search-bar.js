@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Search } from 'semantic-ui-react'
-import { array } from 'prop-types'
+import { array, func } from 'prop-types'
 import { debounce } from 'lodash-es'
 
 function escapeRegExp (text) {
@@ -11,43 +11,66 @@ class SeacrhBar extends Component {
   constructor () {
     super()
     this.state = {
+      isLoading: false,
       results: [],
       value: ''
     }
 
     this.resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-    this.handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    this.handleResultSelect = (e, { result }) => {
+      this.setState({ value: result.title })
+      this.props.handleClick(result.index)
+    }
 
-    this.handleSearchChange = (e, { value }) => {
+    this.handleSearch = debounce(value => {
       const source = this.props.stories
       if (value.length < 1) return this.resetComponent()
 
       const re = new RegExp(escapeRegExp(value), 'i')
-      const isMatch = result => re.test(result.title)
+      const data = []
+      const len = source.length
+
+      for (let i = 0; i < len; ++i) {
+        if (re.test(source[i].title)) {
+          source[i].index = i
+          data.push(source[i])
+        }
+      }
 
       this.setState({
-        value,
-        results: source.filter(isMatch)
+        isLoading: false,
+        results: data
       })
+    }, 120)
+
+    this.handleSearchChange = (e, { value }) => {
+      this.setState({
+        isLoading: true,
+        value
+      })
+      this.handleSearch(value)
     }
   }
 
   render () {
-    const { value, results } = this.state
+    const { isLoading, value, results } = this.state
     return (
       <Search
+        loading={isLoading}
         onResultSelect={this.handleResultSelect}
-        onSearchChange={debounce(this.handleSearchChange, 500, { leading: true })}
+        onSearchChange={this.handleSearchChange}
         results={results}
         value={value}
+        showNoResults={!isLoading}
       />
     )
   }
 }
 
 SeacrhBar.propTypes = {
-  stories: array
+  stories: array,
+  handleClick: func
 }
 
 export default SeacrhBar

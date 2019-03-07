@@ -14,6 +14,11 @@ class TableOfContents extends Component {
 
       this.setState({ activeIndex: newIndex })
     }
+    this.serachResultClick = index => {
+      this.setState({
+        activeIndex: index
+      })
+    }
   }
 
   createStories () {
@@ -50,7 +55,7 @@ class TableOfContents extends Component {
           return {
             title: name
           }
-        })}/>
+        })} handleClick={this.serachResultClick}/>
         <Accordion>
           {this.createStories()}
         </Accordion>
