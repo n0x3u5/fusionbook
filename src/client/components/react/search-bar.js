@@ -9,43 +9,39 @@ function escapeRegExp (text) {
 }
 
 class SeacrhBar extends Component {
-  state = {
-    isLoading: false,
-    results: [],
-    value: ''
-  }
+  constructor () {
+    super()
+    this.state = {
+      results: [],
+      value: ''
+    }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+    this.resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    this.handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value })
-    const source = this.props.stories
+    this.handleSearchChange = (e, { value }) => {
+      const source = this.props.stories
+      if (value.length < 1) return this.resetComponent()
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
-
-      const re = new RegExp(escapeRegExp(this.state.value), 'i')
+      const re = new RegExp(escapeRegExp(value), 'i')
       const isMatch = result => re.test(result.title)
 
       this.setState({
-        isLoading: false,
+        value,
         results: source.filter(isMatch)
       })
-    }, 0)
+    }
   }
 
   render () {
-    const { isLoading, value, results } = this.state
+    const { value, results } = this.state
     return (
       <Search
-        loading={isLoading}
         onResultSelect={this.handleResultSelect}
         onSearchChange={debounce(this.handleSearchChange, 500, { leading: true })}
         results={results}
         value={value}
-        showNoResults={false}
       />
     )
   }

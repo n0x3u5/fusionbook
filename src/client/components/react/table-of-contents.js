@@ -4,15 +4,18 @@ import SeacrhBar from './search-bar'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
-  state = { activeIndex: -1 }
+  constructor () {
+    super()
+    this.state = { activeIndex: -1 }
+    this.handleClick = (e, titleProps) => {
+      const { index } = titleProps
+      const { activeIndex } = this.state
+      const newIndex = activeIndex === index ? -1 : index
 
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
-
-    this.setState({ activeIndex: newIndex })
+      this.setState({ activeIndex: newIndex })
+    }
   }
+
   createStories () {
     let { activeIndex } = this.state
     let { stories } = this.props
