@@ -1,0 +1,24 @@
+.page {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 20%;
+  border: 1px solid black;
+  overflow-y: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.footer {
+  overflow-y: auto;
+  height: 40vh;
+  width: 100%;
+}

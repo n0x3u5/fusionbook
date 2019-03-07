@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { array } from 'prop-types'
+import { array, func } from 'prop-types'
 import SeacrhBar from './search-bar'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
   constructor () {
     super()
-    this.state = { activeIndex: -1 }
+    this.state = { activeIndex: 0 }
     this.handleClick = (e, titleProps) => {
       const { index } = titleProps
       const { activeIndex } = this.state
@@ -23,10 +23,12 @@ class TableOfContents extends Component {
 
   createStories () {
     let { activeIndex } = this.state
-    let { stories } = this.props
-    let createChapters = (chapters) => {
+    let { stories, handlerChapterClick } = this.props
+    let createChapters = (chapters, storyIndex) => {
       return chapters.map((chapter, id) => (
-        <List.Item key={id} onClick={chapter.content}>
+        <List.Item key={id} onClick={() => {
+          handlerChapterClick(storyIndex, id)
+        }}>
           {chapter.name}
         </List.Item>
       ))
@@ -40,7 +42,7 @@ class TableOfContents extends Component {
         </Accordion.Title>
         <Accordion.Content active={activeIndex === idx}>
           <List>
-            {createChapters(story.chapters)}
+            {createChapters(story.chapters, idx)}
           </List>
         </Accordion.Content>
       </Fragment>
@@ -65,7 +67,8 @@ class TableOfContents extends Component {
 }
 
 TableOfContents.propTypes = {
-  stories: array
+  stories: array,
+  handlerChapterClick: func
 }
 
 export default TableOfContents
