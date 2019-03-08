@@ -1,6 +1,7 @@
 import SmartRenderer from '../../../../../fc-core/src/component-interface/smart-renderer'
 import AnimationManager from '../../../../../fc-core/src/animation-manager'
 import Raphael from '../../../../../fc-core/src/_internal/vendors/redraphael/source/raphael'
+import SmartLabelManager from '../../../../../fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
 
 const animationManagerFactory = fusionStory => {
   const animationManager = fusionStory.attachChild(
@@ -11,12 +12,15 @@ const animationManagerFactory = fusionStory => {
   animationManager.addToEnv('chart', fusionStory)
   animationManager.setAnimationState('default')
 }
+const hasSetDimension = child => child.setDimension
 
 class FusionStory extends SmartRenderer {
   constructor () {
     super()
 
     this.registerFactory('animationManager', animationManagerFactory)
+
+    this.addToEnv('smartLabel', new SmartLabelManager(document.body))
   }
 
   __setDefaultConfig () {
@@ -32,10 +36,22 @@ class FusionStory extends SmartRenderer {
   }
 
   draw () {
-    const animationManager = this.getChildren('animationManager')[0]
-    const { id, height, width } = this.config
+    const children = this.getChildren()
+    const animationManager = children.animationManager.elemStore[0]
+    const config = this.config
+    const paper = Raphael(config.id, config.width, config.height)
+    const { width, height } = paper.canvas.getBoundingClientRect()
+    const setDimension = child => child.setDimension(width, height)
+
     this.addToEnv('animationManager', animationManager)
-    animationManager.addToEnv('paper', Raphael(id, width, height))
+    animationManager.addToEnv('paper', paper)
+
+    for (const key in children) {
+      if (children.hasOwnProperty(key)) {
+        const childs = children[key].elemStore
+        childs.filter(hasSetDimension).forEach(setDimension)
+      }
+    }
   }
 }
 
