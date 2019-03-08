@@ -9,14 +9,24 @@ const stories = [
     chapters: [
       {
         name: 'default',
-        content: () => {
-          console.log('hello')
+        content: {
+          meta: [{
+            name: 'chapter',
+            info: 'its all about the chapter'
+          },
+          {
+            name: 'Events',
+            info: 'its all about the Events'
+          }]
         }
       },
       {
         name: 'with background',
-        content: () => {
-          console.log('hello')
+        content: {
+          meta: [{
+            name: 'chapter',
+            info: 'its all about the chapter'
+          }]
         }
       }
     ]
@@ -26,14 +36,20 @@ const stories = [
     chapters: [
       {
         name: 'default',
-        content: () => {
-          console.log('hello')
+        content: {
+          meta: [{
+            name: 'chapter',
+            info: 'its all about the chapter'
+          }]
         }
       },
       {
         name: 'with background',
-        content: () => {
-          console.log('hello')
+        content: {
+          meta: [{
+            name: 'chapter',
+            info: 'its all about the chapter'
+          }]
         }
       }
     ]
