@@ -1,3 +1,3 @@
-class FusionBookParser {}
+class FrescoParser {}
 
-export default FusionBookParser
+export default FrescoParser
