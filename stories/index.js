@@ -1,8 +1,8 @@
-import { Fresco, Story } from '../src/lib/story'
+import { FrescoParser, Story } from '../src/lib/story'
 import Rectangle from './rectangle.js'
 import Note from '../src/lib/metas/note.js'
 
-Story.registerParser(Fresco)
+Story.registerParser(FrescoParser)
 
 const rectangleStory = new Story('Legend Item')
 

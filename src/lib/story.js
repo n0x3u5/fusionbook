@@ -1,5 +1,5 @@
 import Chapter from './chapter.js'
-import Fresco from './parsers/fresco'
+import FrescoParser from './parsers/fresco'
 
 class Story {
   constructor (name = '') {
@@ -18,4 +18,4 @@ class Story {
 
 Story.registeredParsers = []
 
-export { Fresco, Story }
+export { FrescoParser, Story }
