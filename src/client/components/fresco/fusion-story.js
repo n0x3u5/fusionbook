@@ -10,6 +10,7 @@ const animationManagerFactory = fusionStory => {
   )
 
   animationManager.addToEnv('chart', fusionStory)
+  animationManager.configure()
   animationManager.setAnimationState('default')
 }
 const hasSetDimension = child => child.setDimension
@@ -37,14 +38,17 @@ class FusionStory extends SmartRenderer {
 
   draw () {
     const children = this.getChildren()
-    const animationManager = children.animationManager.elemStore[0]
+    this.addToEnv('animationManager', children.animationManager.elemStore[0])
     const config = this.config
-    const paper = Raphael(config.id, config.width, config.height)
+    let paper
+
+    if (!(paper = this.getFromEnv('paper'))) {
+      paper = Raphael(config.id, config.width, config.height)
+      this.addToEnv('paper', paper)
+    }
+
     const { width, height } = paper.canvas.getBoundingClientRect()
     const setDimension = child => child.setDimension(width, height)
-
-    this.addToEnv('animationManager', animationManager)
-    animationManager.addToEnv('paper', paper)
 
     for (const key in children) {
       if (children.hasOwnProperty(key)) {
