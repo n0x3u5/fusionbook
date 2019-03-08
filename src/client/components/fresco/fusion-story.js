@@ -19,6 +19,11 @@ class FusionStory extends SmartRenderer {
     this.registerFactory('animationManager', animationManagerFactory)
   }
 
+  __setDefaultConfig () {
+    super.__setDefaultConfig()
+    this.config.width = this.config.height = '100%'
+  }
+
   configureAttributes (config = {}) {
     Object.assign(this.config, config)
 
@@ -28,8 +33,9 @@ class FusionStory extends SmartRenderer {
 
   draw () {
     const animationManager = this.getChildren('animationManager')[0]
+    const { id, height, width } = this.config
     this.addToEnv('animationManager', animationManager)
-    animationManager.addToEnv('paper', Raphael('fusionbook-root', 600, 600))
+    animationManager.addToEnv('paper', Raphael(id, width, height))
   }
 }
 

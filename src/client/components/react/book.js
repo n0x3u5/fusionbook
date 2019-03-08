@@ -3,42 +3,39 @@ import { array } from 'prop-types'
 import TableOfContents from './table-of-contents'
 import Content from './content'
 import './book.css'
+import Renderer from './renderer'
 
 class Book extends Component {
   constructor () {
     super()
     this.state = {
-      contentMeta: []
+      currentContent: {}
     }
     this.handleChapterClick = (storyIndex, chapterIndex) => {
       let { stories } = this.props
 
       this.setState({
-        contentMeta: stories[storyIndex].chapters[chapterIndex].content.meta
+        currentContent: stories[storyIndex].chapters[chapterIndex].content
       })
     }
   }
 
-  static getDerivedStateFromProps ({ stories }, { contentMeta }) {
+  static getDerivedStateFromProps ({ stories }, { currentContent }) {
     return {
-      contentMeta: contentMeta.length ? contentMeta : stories[0].chapters[0].content.meta
+      currentContent: Object.keys(currentContent).length ? currentContent : stories[0].chapters[0].content
     }
   }
 
   render () {
     let { stories } = this.props
-    let { contentMeta } = this.state
+    let { currentContent } = this.state
     return (
       <div className="page">
-        <div className="sidebar">
-          <TableOfContents stories={stories} handleChapterClick={this.handleChapterClick}/>
-        </div>
+        <TableOfContents stories={stories} handleChapterClick={this.handleChapterClick}/>
         <div className="content">
-          <div className="main"></div>
-          <div className="footer">
-            <Content tabs={contentMeta}>
-            </Content>
-          </div>
+          <Renderer content={currentContent.content}></Renderer>
+          <Content tabs={currentContent.meta}>
+          </Content>
         </div>
       </div>
     )

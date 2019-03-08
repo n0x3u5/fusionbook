@@ -17,6 +17,10 @@
   width: 80%;
 }
 
+.main {
+  height: 60vh;
+}
+
 .footer {
   overflow-y: auto;
   height: 40vh;

@@ -10,7 +10,12 @@ const TabExampleBasic = ({ tabs }) => {
       render: tabContentsFn(info)
     }
   })
-  return panes.length ? (<Tab panes={panes} />) : []
+  let jsx = panes.length ? (<Tab panes={panes} />) : []
+  return (
+    <div className="footer">
+      {jsx}
+    </div>
+  )
 }
 
 TabExampleBasic.propTypes = {
