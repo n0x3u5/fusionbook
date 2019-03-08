@@ -10,7 +10,7 @@ class Book extends Component {
     this.state = {
       contentMeta: []
     }
-    this.handlerChapterClick = (storyIndex, chapterIndex) => {
+    this.handleChapterClick = (storyIndex, chapterIndex) => {
       let { stories } = this.props
 
       this.setState({
@@ -31,7 +31,7 @@ class Book extends Component {
     return (
       <div className="page">
         <div className="sidebar">
-          <TableOfContents stories={stories} handlerChapterClick={this.handlerChapterClick}/>
+          <TableOfContents stories={stories} handleChapterClick={this.handleChapterClick}/>
         </div>
         <div className="content">
           <div className="main"></div>

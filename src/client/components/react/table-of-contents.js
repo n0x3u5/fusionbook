@@ -23,11 +23,11 @@ class TableOfContents extends Component {
 
   createStories () {
     let { activeIndex } = this.state
-    let { stories, handlerChapterClick } = this.props
+    let { stories, handleChapterClick } = this.props
     let createChapters = (chapters, storyIndex) => {
       return chapters.map((chapter, id) => (
         <List.Item key={id} onClick={() => {
-          handlerChapterClick(storyIndex, id)
+          handleChapterClick(storyIndex, id)
         }}>
           {chapter.name}
         </List.Item>
@@ -68,7 +68,7 @@ class TableOfContents extends Component {
 
 TableOfContents.propTypes = {
   stories: array,
-  handlerChapterClick: func
+  handleChapterClick: func
 }
 
 export default TableOfContents
