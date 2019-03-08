@@ -3,8 +3,7 @@ import { array } from 'prop-types'
 import { Tab } from 'semantic-ui-react'
 
 const TabExampleBasic = ({ tabs }) => {
-  // eslint-disable-next-line
-  let tabContentsFn = tabContents => () => <Tab.Pane>{tabContents}</Tab.Pane>
+  let tabContentsFn = tabContents => () => <Tab.Pane>{tabContents}</Tab.Pane> // eslint-disable-line react/display-name
   let panes = tabs.map(({ name, info }) => {
     return {
       menuItem: name,
