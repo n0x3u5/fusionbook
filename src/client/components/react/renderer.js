@@ -2,13 +2,6 @@ import React, { Component } from 'react'
 import Story from '../fresco/fusion-story'
 import { func } from 'prop-types'
 class Renderer extends Component {
-  constructor () {
-    super()
-    this.state = {
-      comtent: () => { // hello
-      }
-    }
-  }
   componentDidMount () {
     let { content } = this.props
     let story = new Story()
@@ -18,19 +11,16 @@ class Renderer extends Component {
       id: 'main'
     })
   }
-  static getDerivedStateFromProps ({ content }) {
-    return {
-      content
-    }
-  }
+
   componentDidUpdate () {
-    let { content } = this.state
+    let { content } = this.props
     let story = this.story
     story.registerFactory('content', content)
     story.setData({
       id: 'main'
     })
   }
+
   render () {
     if (!this) return
     return (
