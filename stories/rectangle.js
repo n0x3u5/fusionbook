@@ -13,12 +13,16 @@ class Rectangle extends SmartRenderer {
   }
 
   draw () {
-    const animationManager = this.getFromEnv('animationManager')
     const { width, height, fill, stroke } = this.config
 
-    animationManager.setAnimation({
+    this.addGraphicalElement({
       el: 'rect',
-      attr: { width, height, fill, stroke }
+      attr: {
+        height,
+        width,
+        fill,
+        stroke
+      }
     })
   }
 }

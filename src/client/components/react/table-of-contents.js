@@ -51,7 +51,7 @@ class TableOfContents extends Component {
   render () {
     let { stories } = this.props
     return (
-      <div>
+      <div className="sidebar">
         <h1>FusionBook</h1>
         <SeacrhBar stories={stories.map(({ name }) => {
           return {
