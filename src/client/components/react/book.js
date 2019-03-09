@@ -18,6 +18,9 @@ class Book extends Component {
         currentContent: stories[storyIndex].chapters[chapterIndex].content
       })
     }
+
+    this.handleConfig = console.log
+    this.handleEvent = console.log
   }
 
   static getDerivedStateFromProps ({ stories }, { currentContent }) {
@@ -33,7 +36,7 @@ class Book extends Component {
       <div className="page">
         <TableOfContents stories={stories} handleChapterClick={this.handleChapterClick}/>
         <div className="content">
-          <Renderer content={currentContent.content}></Renderer>
+          <Renderer content={currentContent.content} handleConfig={this.handleConfig} handleEvent={this.handleEvent}></Renderer>
           <Content tabs={currentContent.meta}>
           </Content>
         </div>
