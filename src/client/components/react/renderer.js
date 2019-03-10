@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Story from '../fresco/fusion-story'
-import { func } from 'prop-types'
+import { func, string } from 'prop-types'
 
 class Renderer extends Component {
   constructor () {
     super()
 
     this.handleChildAttach = ({ data: { attachedChild } }) => {
-      if (attachedChild.getType() !== 'animationManager' && !this.configSent) {
+      if (attachedChild.getType() !== 'animationManager') {
         attachedChild.addEventListener('*', this.props.handleEvent)
         this.props.handleConfig(attachedChild.config)
       }
@@ -15,9 +15,11 @@ class Renderer extends Component {
   }
 
   componentDidMount () {
-    let { content } = this.props
+    let { content, id, updateData } = this.props
     let story = new Story()
+    this.prevId = id
     this.story = story
+    story.addEventListener('drawn', updateData)
     story.registerFactory('content', content)
     story.addEventListener('childattached', this.handleChildAttach)
     story.setData({
@@ -26,13 +28,21 @@ class Renderer extends Component {
   }
 
   componentDidUpdate () {
-    let { content } = this.props
+    let { content, id } = this.props
     let story = this.story
-    story.registerFactory('content', content)
-    story.addEventListener('childattached', this.handleChildAttach)
-    story.setData({
-      id: 'main'
-    })
+    if (this.prevId !== id) {
+      this.prevId = id
+      Object.keys(story.getChildren()).forEach(key => {
+        if (key !== 'animationManager') {
+          story.getChildren(key).forEach(child => child.removeEventListener('*', this.props.handleEvent))
+        }
+      })
+      story.registerFactory('content', content)
+      story.addEventListener('childattached', this.handleChildAttach)
+      story.setData({
+        id: 'main'
+      })
+    }
   }
 
   render () {
@@ -47,7 +57,9 @@ class Renderer extends Component {
 Renderer.propTypes = {
   content: func,
   handleConfig: func,
-  handleEvent: func
+  handleEvent: func,
+  id: string,
+  updateData: func
 }
 
 export default Renderer
