@@ -1,17 +1,10 @@
-class Event {
+import Meta from './meta'
+
+class Event extends Meta {
   constructor () {
+    super()
+
     this.name = 'Event Log'
-    this.info = ''
-  }
-
-  setInfo (info) {
-    this.info = info
-
-    return this
-  }
-
-  clone () {
-    return new Event().setInfo(this.info)
   }
 }
 

@@ -3,13 +3,13 @@ import { Search } from 'semantic-ui-react'
 import { array, func } from 'prop-types'
 import { debounce } from 'lodash-es'
 
-function escapeRegExp (text) {
-  return text.replace(/[-[\]{}()*+?.,\\/^$|#\s]/g, '\\$&')
-}
+const SEARCH_DEBOUNCE_RATE = 120
+const escapeRegExp = text => text.replace(/[-[\]{}()*+?.,\\/^$|#\s]/g, '\\$&')
 
 class SeacrhBar extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
     this.state = {
       isLoading: false,
       results: [],
@@ -42,7 +42,7 @@ class SeacrhBar extends Component {
         isLoading: false,
         results: data
       })
-    }, 120)
+    }, SEARCH_DEBOUNCE_RATE)
 
     this.handleSearchChange = (e, { value }) => {
       this.setState({
