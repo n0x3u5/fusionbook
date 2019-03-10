@@ -4,8 +4,9 @@ import SeacrhBar from './search-bar'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
     this.state = { activeIndex: 0 }
     this.handleClick = (e, titleProps) => {
       const { index } = titleProps

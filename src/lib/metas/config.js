@@ -1,17 +1,10 @@
-class Config {
+import Meta from './meta'
+
+class Config extends Meta {
   constructor () {
+    super()
+
     this.name = 'Configuration'
-    this.info = ''
-  }
-
-  setInfo (info) {
-    this.info = info
-
-    return this
-  }
-
-  clone () {
-    return new Config().setInfo(this.info)
   }
 }
 
