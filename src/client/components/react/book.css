@@ -11,7 +11,7 @@
   padding-top: 10px;
   width: 25%;
   border: 1px solid black;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .content {
@@ -29,6 +29,7 @@
 .main {
   padding: 10px;
   height: 60vh;
+  overflow: auto;
 }
 
 .footer {
@@ -53,7 +54,7 @@
   background-color: #242424;
   color: #fff;
   border-color: black;
-  overflow-y: auto;
+  overflow: auto;
   height: 85%;
   width: 100%;
 }
