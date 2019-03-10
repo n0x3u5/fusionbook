@@ -2,7 +2,7 @@
 import React from 'react'
 import { array } from 'prop-types'
 import { Tab } from 'semantic-ui-react'
-import { ObjectInspector } from 'react-inspector'
+import { ObjectInspector, chromeDark } from 'react-inspector'
 import isObject from '../../../utils/is-object'
 
 /**
@@ -12,7 +12,7 @@ import isObject from '../../../utils/is-object'
  * @param {number} [i = 0] The index of the content
  * @returns {object} An ObjectInspector component
  */
-const createInspectable = (x, i = 0) => <ObjectInspector data={x} key={i} />
+const createInspectable = (x, i = 0) => <ObjectInspector theme={{ ...chromeDark }} data={x} key={i} />
 
 /**
  * Converts the input into its displayable form.
@@ -56,11 +56,13 @@ const createTabPanes = ({ name, info }) => ({
  * @returns {object} React element representing a MetaInfo component
  */
 const MetaInfo = ({ tabs }) => {
-  return (
-    <div className="footer">
-      {tabs.length ? <Tab panes={tabs.map(createTabPanes)} /> : []}
-    </div>
-  )
+  if (tabs.length) {
+    return (
+      <Tab panes={tabs.map(createTabPanes)} className='footer' />
+    )
+  } else {
+    return []
+  }
 }
 
 MetaInfo.propTypes = {

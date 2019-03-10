@@ -41,7 +41,7 @@ class TableOfContents extends Component {
           {story.name}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === idx}>
-          <List>
+          <List bulleted>
             {createChapters(story.chapters, idx)}
           </List>
         </Accordion.Content>
