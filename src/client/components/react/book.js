@@ -5,7 +5,6 @@ import MetaInfo from './meta-info'
 import './book.css'
 import Renderer from './renderer'
 
-const emptyFunc = function () { /* empty function */ }
 const isMeta = metaName => ({ name }) => name === metaName
 const isMetaConfig = isMeta('Configuration')
 const isMetaEventLog = isMeta('Event Log')
@@ -14,22 +13,26 @@ class Book extends Component {
   constructor (props) {
     super(props)
 
+    const defaultContent = props.stories[0].chapters[0].content
+
     this.state = {
       id: '0-0',
-      componentContent: emptyFunc,
-      metaContent: []
+      componentContent: defaultContent.content,
+      metaContent: defaultContent.meta
     }
 
     this.handleChapterClick = (storyIndex, chapterIndex) => {
       let { stories } = this.props
       let { content } = stories[storyIndex].chapters[chapterIndex]
-
-      this.setState({
-        id: storyIndex + '-' + chapterIndex,
-        componentContent: content.content,
-        metaContent: content.meta
-      })
-      this.metaContent = content.meta
+      let id = storyIndex + '-' + chapterIndex
+      if (id !== this.state.id) {
+        this.setState({
+          id: storyIndex + '-' + chapterIndex,
+          componentContent: content.content,
+          metaContent: content.meta
+        })
+        this.metaContent = content.meta
+      }
     }
 
     this.handleConfig = config => {
@@ -70,21 +73,6 @@ class Book extends Component {
       this.setState({
         metaContent: this.metaContent
       })
-    }
-  }
-
-  static getDerivedStateFromProps ({ stories }, state) {
-    let { componentContent, metaContent } = state
-
-    if (componentContent === emptyFunc) {
-      const defaultContent = stories[0].chapters[0].content
-      componentContent = defaultContent.content
-      metaContent = defaultContent.meta
-    }
-
-    return {
-      componentContent,
-      metaContent
     }
   }
 
