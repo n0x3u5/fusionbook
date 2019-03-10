@@ -1,6 +1,6 @@
 class Note {
   constructor (text) {
-    this.name = 'Note'
+    this.name = 'Notes'
     this.info = text
   }
 

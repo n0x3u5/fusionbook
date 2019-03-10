@@ -3,8 +3,8 @@ import Story from '../fresco/fusion-story'
 import { func, string } from 'prop-types'
 
 class Renderer extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.handleChildAttach = ({ data: { attachedChild } }) => {
       if (attachedChild.getType() !== 'animationManager') {
@@ -12,6 +12,8 @@ class Renderer extends Component {
         this.props.handleConfig(attachedChild.config)
       }
     }
+
+    this.render = () => <div className="main" id="main"></div>
   }
 
   componentDidMount () {
@@ -43,14 +45,6 @@ class Renderer extends Component {
         id: 'main'
       })
     }
-  }
-
-  render () {
-    if (!this) return
-    return (
-      <div className="main" id="main">
-      </div>
-    )
   }
 }
 

@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
 import { array } from 'prop-types'
 import TableOfContents from './table-of-contents'
-import Content from './content'
+import MetaInfo from './meta-info'
 import './book.css'
 import Renderer from './renderer'
 
 const emptyFunc = function () { /* empty function */ }
+const isMeta = metaName => ({ name }) => name === metaName
+const isMetaConfig = isMeta('Configuration')
+const isMetaEventLog = isMeta('Event Log')
 
 class Book extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
     this.state = {
       id: '0-0',
       componentContent: emptyFunc,
       metaContent: []
     }
+
     this.handleChapterClick = (storyIndex, chapterIndex) => {
       let { stories } = this.props
       let { content } = stories[storyIndex].chapters[chapterIndex]
@@ -28,8 +33,12 @@ class Book extends Component {
     }
 
     this.handleConfig = config => {
-      let metaContent = this.metaContent ? [...this.metaContent] : [...this.state.metaContent]
-      let configIndex = metaContent.findIndex(({ name }) => name === 'Configuration')
+      let metaContent = this.metaContent
+        ? [...this.metaContent]
+        : [...this.state.metaContent]
+
+      let configIndex = metaContent.findIndex(isMetaConfig)
+
       if (configIndex !== undefined) {
         const configInfo = Object.assign({}, metaContent[configIndex])
         configInfo.info = config
@@ -37,9 +46,14 @@ class Book extends Component {
       }
       this.metaContent = metaContent
     }
+
     this.handleEvent = event => {
-      let metaContent = this.metaContent ? [...this.metaContent] : [...this.state.metaContent]
-      let eventIndex = metaContent.findIndex(({ name }) => name === 'Event')
+      let metaContent = this.metaContent
+        ? [...this.metaContent]
+        : [...this.state.metaContent]
+
+      let eventIndex = metaContent.findIndex(isMetaEventLog)
+
       if (eventIndex !== undefined) {
         const eventInfo = Object.assign({}, metaContent[eventIndex])
         if (Array.isArray(eventInfo.info)) {
@@ -51,6 +65,7 @@ class Book extends Component {
       }
       this.metaContent = metaContent
     }
+
     this.updateData = () => {
       this.setState({
         metaContent: this.metaContent
@@ -58,12 +73,15 @@ class Book extends Component {
     }
   }
 
-  static getDerivedStateFromProps ({ stories }, { componentContent, metaContent }) {
+  static getDerivedStateFromProps ({ stories }, state) {
+    let { componentContent, metaContent } = state
+
     if (componentContent === emptyFunc) {
       const defaultContent = stories[0].chapters[0].content
       componentContent = defaultContent.content
       metaContent = defaultContent.meta
     }
+
     return {
       componentContent,
       metaContent
@@ -75,11 +93,19 @@ class Book extends Component {
     let { componentContent, metaContent, id } = this.state
     return (
       <div className="page">
-        <TableOfContents stories={stories} handleChapterClick={this.handleChapterClick}/>
+        <TableOfContents
+          stories={stories}
+          handleChapterClick={this.handleChapterClick}
+        />
         <div className="content">
-          <Renderer content={componentContent} handleConfig={this.handleConfig} id={id} handleEvent={this.handleEvent} updateData={this.updateData}></Renderer>
-          <Content tabs={metaContent}>
-          </Content>
+          <Renderer
+            content={componentContent}
+            handleConfig={this.handleConfig}
+            id={id}
+            handleEvent={this.handleEvent}
+            updateData={this.updateData}
+          ></Renderer>
+          <MetaInfo tabs={metaContent}></MetaInfo>
         </div>
       </div>
     )

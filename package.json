@@ -2,7 +2,7 @@
   "name": "fusionbook",
   "version": "0.0.1",
   "description": "Develop FusionCharts components in isolation",
-  "main": "src/index.js",
+  "main": "src/client/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./dist && webpack --mode production",
@@ -55,6 +55,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-inspector": "^2.3.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.85.0"
   }

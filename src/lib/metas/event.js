@@ -1,6 +1,6 @@
 class Event {
   constructor () {
-    this.name = 'Event'
+    this.name = 'Event Log'
     this.info = ''
   }
 
