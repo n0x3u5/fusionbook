@@ -4,7 +4,9 @@ import { array } from 'prop-types'
 import { Tab } from 'semantic-ui-react'
 import { ObjectInspector, chromeDark } from 'react-inspector'
 import isObject from '../../../utils/is-object'
-
+chromeDark.BASE_BACKGROUND_COLOR = '#434456'
+chromeDark.TREENODE_FONT_SIZE = '13px'
+chromeDark.TREENODE_LINE_HEIGHT = 1.4
 /**
  * Creates an inspectable ObjectInspector component using the input value.
  *

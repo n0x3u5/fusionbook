@@ -5,12 +5,12 @@
 }
 
 .sidebar {
-  background: linear-gradient(to bottom, #0ff 0%, #f93 100%);
+  background: #f1f2fa;
   border-top-right-radius: 2px;
-  padding-left: 10px;
+  padding-left: 15px;
   padding-top: 10px;
-  width: 25%;
-  border: 1px solid black;
+  padding-right: 15px;
+  width: 16%;
   overflow: auto;
 }
 
@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 75%;
+  width: 84%;
 }
 
 .ui.bulleted.list {
@@ -38,23 +38,46 @@
 }
 
 .ui.attached.tabular.menu {
-  background-color: #444;
-  border-color: black;
+  background-color: #686980;
+  border-color: #36374d;
   height: 15%;
 }
 
 .ui.attached.tabular.menu .active.item {
-  border-color: black;
-  background-color: #242424;
+  border-color: #36374d;
+  background-color: #434456;
+  color: #fff;
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.ui.attached.tabular.menu .item {
   color: #fff;
 }
 
 .ui.bottom.attached.segment.active.tab {
   border-radius: 0;
-  background-color: #242424;
+  background-color: #434456;
   color: #fff;
   border-color: black;
   overflow: auto;
   height: 85%;
   width: 100%;
+}
+
+.ui.search .prompt {
+  border-radius: 10px !important;
+  box-shadow: 0 3px 4px 1px #dbdbe4;
+  width: 100%;
+}
+
+.ui.search {
+  width: 100%;
+}
+
+.ui.icon.input {
+  width: 100%;
+}
+
+.accordion.ui {
+  margin-top: 10px;
 }
