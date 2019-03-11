@@ -28,7 +28,9 @@ rectangleStory.addChapter(
       .attachChild(Rectangle, 'rect')
       .configure({ width: 30, height: 30 }),
     meta: [
-      new Note('This is the rectangle as it appears when its width and height are 30px')
+      new Note('This is the rectangle as it appears when its width and height are 30px'),
+      new Config(),
+      new Event()
     ]
   }
 )
