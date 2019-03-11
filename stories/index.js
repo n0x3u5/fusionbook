@@ -49,4 +49,32 @@ captionStory.addChapter(
   }
 )
 
+captionStory.addChapter(
+  'default Sub Caption appearance with text',
+  {
+    content: story => story
+      .attachChild(Caption, 'caption')
+      .configure({ subCaption: 'Sub Caption' }),
+    meta: [
+      new Note('Sub Caption with some text as it appears by default'),
+      new Config(),
+      new Event()
+    ]
+  }
+)
+
+captionStory.addChapter(
+  'Caption and Sub Caption together',
+  {
+    content: story => story
+      .attachChild(Caption, 'caption')
+      .configure({ caption: 'Caption', subCaption: 'Sub Caption' }),
+    meta: [
+      new Note('Caption and sub caption together'),
+      new Config(),
+      new Event()
+    ]
+  }
+)
+
 export default [rectangleStory, captionStory]
