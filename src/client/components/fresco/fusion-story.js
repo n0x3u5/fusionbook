@@ -2,6 +2,7 @@ import SmartRenderer from '../../../../../fc-core/src/component-interface/smart-
 import AnimationManager from '../../../../../fc-core/src/animation-manager'
 import Raphael from '../../../../../fc-core/src/_internal/vendors/redraphael/source/raphael'
 import SmartLabelManager from '../../../../../fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
+import { merge } from 'lodash-es'
 
 const LINE_HEIGHT_FACTOR = 1.2
 
@@ -60,7 +61,7 @@ const getStyleDef = (styleDef = {}) => {
     mergedStyle = {}
     // more than one style definitions can be provided, so merge all the styles with the last mentioned style
     // having the highest priority.
-    styleDefinition && styleDef.split((/\s+/g)).forEach(style => extend2(mergedStyle, styleDefinition[style.toLowerCase()]))
+    styleDefinition && styleDef.split((/\s+/g)).forEach(style => merge(mergedStyle, styleDefinition[style.toLowerCase()]))
   }
   // if mergeStyle is defined that means styleDef is of string type, then assign styleDef to mergedStyle
   if (mergedStyle) {
