@@ -12,15 +12,6 @@ class Rectangle extends SmartRenderer {
     Object.assign(this.config, config)
   }
 
-  setDimension (width, height) {
-    if (width < this.config.width) {
-      this.config.width = width
-    }
-    if (height < this.config.height) {
-      this.config.height = height
-    }
-  }
-
   draw () {
     const { width, height, fill, stroke } = this.config
 

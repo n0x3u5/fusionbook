@@ -21,7 +21,19 @@ rectangleStory.addChapter(
   }
 )
 
-const captionStory = new Story('Caption and Subcaption')
+rectangleStory.addChapter(
+  'with a small size',
+  {
+    content: story => story
+      .attachChild(Rectangle, 'rect')
+      .configure({ width: 30, height: 30 }),
+    meta: [
+      new Note('This is the rectangle as it appears when its width and height are 30px')
+    ]
+  }
+)
+
+const captionStory = new Story('Caption and Sub Caption')
 
 captionStory.addChapter(
   'default Caption appearance with text',
@@ -31,20 +43,6 @@ captionStory.addChapter(
       .configure({ caption: 'Caption' }),
     meta: [
       new Note('Caption with some text as it appears by default'),
-      new Config(),
-      new Event()
-    ]
-  }
-)
-
-captionStory.addChapter(
-  'default Sub Caption appearance with text',
-  {
-    content: story => story
-      .attachChild(Caption, 'caption')
-      .configure({ caption: 'Sub caption' }),
-    meta: [
-      new Note('Sub Caption with some text as it appears by default'),
       new Config(),
       new Event()
     ]

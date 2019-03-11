@@ -8,9 +8,6 @@
     "build": "rimraf ./dist && webpack --mode production",
     "start": "rimraf ./dist && webpack-dev-server --mode development"
   },
-  "bin": {
-    "fusionbook": "./src/cli/index.mjs"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/n0x3u5/fusionbook.git"
