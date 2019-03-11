@@ -19,7 +19,7 @@ class SeacrhBar extends Component {
     this.resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
     this.handleResultSelect = (e, { result }) => {
-      this.setState({ value: result.title })
+      this.setState({ value: '' })
       this.props.setActiveIndex(result.index)
     }
 
