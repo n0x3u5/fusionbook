@@ -4,6 +4,23 @@ import Caption from '../../fc-timeseries/src/_internal/components/caption/index.
 import Note from '../src/lib/metas/note.js'
 import Config from '../src/lib/metas/config.js'
 import Event from '../src/lib/metas/event.js'
+import TimeInstanceMarker from '../../fc-timeseries/src/_internal/components/time-instance-marker'
+import TimeScale from '../../fc-utils/src/scales/calendar'
+
+TimeInstanceMarker.prototype.addDetailsToParent = function () {
+  let { config } = this.getLinkedParent()
+  config.padding = {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
+  }
+  config.canvasBGHeight = 200
+  config.canvasBGTop = 0
+  config.canvasBGLeft = 0
+  config.canvasBGWidth = 200
+  return this
+}
 
 Story.registerParser(FrescoParser)
 
@@ -49,4 +66,54 @@ captionStory.addChapter(
   }
 )
 
-export default [rectangleStory, captionStory]
+const timeInstnaceStory = new Story('Time Instance')
+
+timeInstnaceStory.addChapter(
+  'default Time Instance',
+  {
+    content: story => story
+      .attachChild(TimeInstanceMarker, 'timeInstance')
+      .addDetailsToParent()
+      .configure({
+        timeMarker: [{
+          start: '01-01-2000 10 AM',
+          label: 'Economic downturn was triggered by {br} tight monetary policy in an effort to {br} fight mounting inflation.',
+          timeformat: '%d-%m-%Y %I %p'
+        }],
+        xScale: new TimeScale()
+          .setDomain([946684800000, 946751400000])
+          .setRange([0, 200])
+      }),
+    meta: [
+      new Note('Time Instance with some text as it appears by default'),
+      new Config(),
+      new Event()
+    ]
+  }
+)
+
+timeInstnaceStory.addChapter(
+  'with default time format',
+  {
+    content: story => story
+      .attachChild(TimeInstanceMarker, 'timeInstance')
+      .addDetailsToParent()
+      .configure({
+        timeMarker: [{
+          start: '01-01-2000 10 AM',
+          label: 'Economic downturn was triggered by {br} tight monetary policy in an effort to {br} fight mounting inflation.'
+        }],
+        xScale: new TimeScale()
+          .setDomain([946684800000, 946751400000])
+          .setRange([0, 200]),
+        defaultFormat: '%d-%m-%Y %I %p'
+      }),
+    meta: [
+      new Note('Time Instance with some text as it appears by default'),
+      new Config(),
+      new Event()
+    ]
+  }
+)
+
+export default [rectangleStory, captionStory, timeInstnaceStory]

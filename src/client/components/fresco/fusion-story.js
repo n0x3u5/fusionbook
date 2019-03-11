@@ -113,6 +113,9 @@ class FusionStory extends SmartRenderer {
     const { width, height } = paper.canvas.getBoundingClientRect()
     const setDimension = child => child.setDimension(width, height)
 
+    config.width = width
+    config.height = height
+
     for (const key in children) {
       if (children.hasOwnProperty(key)) {
         const childs = children[key].elemStore
