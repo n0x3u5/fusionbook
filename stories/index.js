@@ -19,6 +19,8 @@ TimeInstanceMarker.prototype.addDetailsToParent = function () {
   config.canvasBGTop = 0
   config.canvasBGLeft = 0
   config.canvasBGWidth = 200
+  config.canvasHeight = 200
+  config.canvasWidth = 200
   return this
 }
 
@@ -110,10 +112,10 @@ captionStory.addChapter(
   }
 )
 
-const timeInstnaceStory = new Story('Time Instance')
+const timeInstnaceStory = new Story('Time Instant Marker')
 
 timeInstnaceStory.addChapter(
-  'default Time Instance',
+  'with defaults',
   {
     content: story => story
       .attachChild(TimeInstanceMarker, 'timeInstance')
@@ -121,7 +123,6 @@ timeInstnaceStory.addChapter(
       .configure({
         timeMarker: [{
           start: '01-01-2000 10 AM',
-          label: 'Economic downturn was triggered by {br} tight monetary policy in an effort to {br} fight mounting inflation.',
           timeformat: '%d-%m-%Y %I %p'
         }],
         xScale: new TimeScale()
@@ -137,7 +138,7 @@ timeInstnaceStory.addChapter(
 )
 
 timeInstnaceStory.addChapter(
-  'with default time format',
+  'when hovered',
   {
     content: story => story
       .attachChild(TimeInstanceMarker, 'timeInstance')
@@ -145,12 +146,14 @@ timeInstnaceStory.addChapter(
       .configure({
         timeMarker: [{
           start: '01-01-2000 10 AM',
-          label: 'Economic downturn was triggered by {br} tight monetary policy in an effort to {br} fight mounting inflation.'
+          timeformat: '%d-%m-%Y %I %p'
         }],
         xScale: new TimeScale()
           .setDomain([946684800000, 946751400000])
           .setRange([0, 200]),
-        defaultFormat: '%d-%m-%Y %I %p'
+        hoveredMarkerIndex: 0,
+        hoveredDomainIndex: 0,
+        hoveredFromOutside: true
       }),
     meta: [
       new Note('Time Instance with some text as it appears by default'),
