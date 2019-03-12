@@ -4,8 +4,9 @@ import SeacrhBar from './search-bar'
 import { Accordion, Icon, List } from 'semantic-ui-react'
 
 class TableOfContents extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+
     this.state = { activeIndex: 0 }
     this.handleClick = (e, titleProps) => {
       const { index } = titleProps
@@ -41,7 +42,7 @@ class TableOfContents extends Component {
           {story.name}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === idx}>
-          <List>
+          <List bulleted>
             {createChapters(story.chapters, idx)}
           </List>
         </Accordion.Content>
@@ -52,7 +53,7 @@ class TableOfContents extends Component {
     let { stories } = this.props
     return (
       <div className="sidebar">
-        <h1>FusionBook</h1>
+        <h2>FusionBook</h2>
         <SeacrhBar stories={stories.map(({ name }) => {
           return {
             title: name

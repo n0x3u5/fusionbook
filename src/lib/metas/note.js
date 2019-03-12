@@ -1,7 +1,10 @@
-class Note {
+import Meta from './meta'
+
+class Note extends Meta {
   constructor (text) {
-    this.name = 'Note'
-    this.info = text
+    super(text)
+
+    this.name = 'Notes'
   }
 }
 

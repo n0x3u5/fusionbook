@@ -2,6 +2,9 @@ import SmartRenderer from '../../../../../fc-core/src/component-interface/smart-
 import AnimationManager from '../../../../../fc-core/src/animation-manager'
 import Raphael from '../../../../../fc-core/src/_internal/vendors/redraphael/source/raphael'
 import SmartLabelManager from '../../../../../fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
+import { merge } from 'lodash-es'
+
+const LINE_HEIGHT_FACTOR = 1.2
 
 const animationManagerFactory = fusionStory => {
   const animationManager = fusionStory.attachChild(
@@ -14,6 +17,65 @@ const animationManagerFactory = fusionStory => {
   animationManager.setAnimationState('default')
 }
 const hasSetDimension = child => child.setDimension
+const parseStrokeDashArray = styleDef => {
+  for (var property in styleDef) {
+    if (styleDef.hasOwnProperty(property)) {
+      if (typeof styleDef[property] === 'object') {
+        parseStrokeDashArray(styleDef[property])
+      } else if (property === 'stroke-dasharray' && typeof styleDef[property] === 'string') {
+        // if stoke dasharray is provided in string
+        // First trim the whitespaces then replace comma with space to normalise the sting and then split with space.
+        styleDef[property] = styleDef[property].replace(/^\s+|\s+$/g, '').replace(/,/g, ' ').split(' ').map(c => +c)
+      }
+    }
+  }
+}
+const parseOpacity = styleDef => {
+  for (var property in styleDef) {
+    if (styleDef.hasOwnProperty(property)) {
+      if (typeof styleDef[property] === 'object') {
+        parseOpacity(styleDef[property])
+      } else if (property === 'opacity' || property === 'stroke-opacity' || property === 'fill-opacity') {
+        // normalize the opacity between 0 to 1
+        styleDef[property] = Math.max(0, Math.min(1, +styleDef[property]))
+      }
+    }
+  }
+}
+const setLineHeight = (styleObj, baseFontSize) => {
+  if (typeof styleObj !== 'object') {
+    return
+  }
+
+  // Calculate line height if not explicitly provided by the user
+  if (!styleObj['line-height']) {
+    styleObj['line-height'] =
+                ((parseFloat(styleObj['font-size']) || baseFontSize || 10) * LINE_HEIGHT_FACTOR)
+  }
+}
+const getStyleDef = (styleDef = {}) => {
+  let mergedStyle
+
+  if (typeof styleDef === 'string') {
+    let styleDefinition = {}
+    mergedStyle = {}
+    // more than one style definitions can be provided, so merge all the styles with the last mentioned style
+    // having the highest priority.
+    styleDefinition && styleDef.split((/\s+/g)).forEach(style => merge(mergedStyle, styleDefinition[style.toLowerCase()]))
+  }
+  // if mergeStyle is defined that means styleDef is of string type, then assign styleDef to mergedStyle
+  if (mergedStyle) {
+    styleDef = mergedStyle
+  }
+  // middleware for parsing stroke dasharray
+  // support for string dash array
+  parseStrokeDashArray(styleDef)
+  // middleware for parsing opacity
+  // support for opacity normalisation
+  parseOpacity(styleDef);
+  (styleDef['font-size'] || styleDef['font-size'] === 0) && setLineHeight(styleDef, 10)
+  return styleDef
+}
 
 class FusionStory extends SmartRenderer {
   constructor () {
@@ -22,6 +84,7 @@ class FusionStory extends SmartRenderer {
     this.registerFactory('animationManager', animationManagerFactory)
 
     this.addToEnv('smartLabel', new SmartLabelManager(document.body))
+    this.addToEnv('getStyleDef', getStyleDef)
   }
 
   __setDefaultConfig () {
@@ -50,10 +113,16 @@ class FusionStory extends SmartRenderer {
     const { width, height } = paper.canvas.getBoundingClientRect()
     const setDimension = child => child.setDimension(width, height)
 
+    config.width = width
+    config.height = height
+
     for (const key in children) {
       if (children.hasOwnProperty(key)) {
         const childs = children[key].elemStore
-        childs.filter(hasSetDimension).forEach(setDimension)
+        childs
+          .filter(child => child.config.width == null || child.config.height == null)
+          .filter(hasSetDimension)
+          .forEach(setDimension)
       }
     }
   }

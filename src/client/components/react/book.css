@@ -5,24 +5,79 @@
 }
 
 .sidebar {
-  width: 20%;
-  border: 1px solid black;
-  overflow-y: auto;
+  background: #f1f2fa;
+  border-top-right-radius: 2px;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-right: 15px;
+  width: 16%;
+  overflow: auto;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 80%;
+  width: 84%;
+}
+
+.ui.bulleted.list {
+  padding-left: 15px;
+  cursor: pointer;
 }
 
 .main {
+  padding: 10px;
   height: 60vh;
+  overflow: auto;
 }
 
 .footer {
-  overflow-y: auto;
   height: 40vh;
   width: 100%;
+}
+
+.ui.attached.tabular.menu {
+  background-color: #686980;
+  border-color: #36374d;
+  height: 15%;
+}
+
+.ui.attached.tabular.menu .active.item {
+  border-color: #36374d;
+  background-color: #434456;
+  color: #fff;
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.ui.attached.tabular.menu .item {
+  color: #fff;
+}
+
+.ui.bottom.attached.segment.active.tab {
+  border-radius: 0;
+  background-color: #434456;
+  color: #fff;
+  border-color: black;
+  overflow: auto;
+  height: 85%;
+  width: 100%;
+}
+
+.ui.search .prompt {
+  border-radius: 10px !important;
+  box-shadow: 0 3px 4px 1px #dbdbe4;
+  width: 100%;
+}
+
+.ui.search {
+  width: 100%;
+}
+
+.ui.icon.input {
+  width: 100%;
+}
+
+.accordion.ui {
+  margin-top: 13px;
 }
