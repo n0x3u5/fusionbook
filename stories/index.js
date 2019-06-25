@@ -19,6 +19,7 @@ TimeInstanceMarker.prototype.addDetailsToParent = function () {
   config.canvasBGTop = 0
   config.canvasBGLeft = 0
   config.canvasBGWidth = 200
+  config.canvasTop = 0
   config.canvasHeight = 200
   config.canvasWidth = 200
   return this

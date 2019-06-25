@@ -1,8 +1,11 @@
 import SmartRenderer from '../../../../../fc-core/src/component-interface/smart-renderer'
 import AnimationManager from '../../../../../fc-core/src/animation-manager'
 import Raphael from '../../../../../fc-core/src/_internal/vendors/redraphael/source/raphael'
+import RaphaelCSS from '../../../../../fc-core/src/_internal/redraphael/redraphael.css'
 import SmartLabelManager from '../../../../../fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
 import { merge } from 'lodash-es'
+
+RaphaelCSS(Raphael)
 
 const LINE_HEIGHT_FACTOR = 1.2
 
@@ -111,7 +114,7 @@ class FusionStory extends SmartRenderer {
     }
 
     const { width, height } = paper.canvas.getBoundingClientRect()
-    const setDimension = child => child.setDimension(width, height)
+    const setDimension = child => child.setDimension({ width, height })
 
     config.width = width
     config.height = height
