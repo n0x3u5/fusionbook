@@ -1,8 +1,8 @@
-import SmartRenderer from '../../../../../fc-core/src/component-interface/smart-renderer'
-import AnimationManager from '../../../../../fc-core/src/animation-manager'
-import Raphael from '../../../../../fc-core/src/_internal/vendors/redraphael/source/raphael'
-import RaphaelCSS from '../../../../../fc-core/src/_internal/redraphael/redraphael.css'
-import SmartLabelManager from '../../../../../fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
+import SmartRenderer from '../../../../../fusioncharts-xt/packages/fc-core/src/component-interface/smart-renderer'
+import AnimationManager from '../../../../../fusioncharts-xt/packages/fc-core/src/animation-manager'
+import Raphael from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/redraphael/source/raphael'
+import RaphaelCSS from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/redraphael/redraphael.css'
+import SmartLabelManager from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
 import { merge } from 'lodash-es'
 
 RaphaelCSS(Raphael)
