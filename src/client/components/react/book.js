@@ -71,7 +71,7 @@ class Book extends Component {
 
     this.updateData = () => {
       this.setState({
-        metaContent: this.state.metaContent
+        metaContent: this.metaContent
       })
     }
   }
