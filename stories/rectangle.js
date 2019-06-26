@@ -1,4 +1,4 @@
-import SmartRenderer from '../../fc-core/src/component-interface/smart-renderer'
+import SmartRenderer from '../../fusioncharts-xt/packages/fc-core/src/component-interface/smart-renderer'
 
 class Rectangle extends SmartRenderer {
   __setDefaultConfig () {

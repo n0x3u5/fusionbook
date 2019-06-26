@@ -1,11 +1,11 @@
 import { FrescoParser, Story } from '../src/lib/story'
 import Rectangle from './rectangle.js'
-import Caption from '../../fc-timeseries/src/_internal/components/caption/index.js'
+import Caption from '../../fusioncharts-xt/packages/fc-timeseries/src/_internal/components/caption/index.js'
 import Note from '../src/lib/metas/note.js'
 import Config from '../src/lib/metas/config.js'
 import Event from '../src/lib/metas/event.js'
-import TimeInstanceMarker from '../../fc-timeseries/src/_internal/components/time-instance-marker'
-import TimeScale from '../../fc-utils/src/scales/calendar'
+import TimeInstanceMarker from '../../fusioncharts-xt/packages/fc-timeseries/src/_internal/components/time-instance-marker'
+import TimeScale from '../../fusioncharts-xt/packages/fc-utils/src/scales/calendar'
 
 TimeInstanceMarker.prototype.addDetailsToParent = function () {
   let { config } = this.getLinkedParent()
