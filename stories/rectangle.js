@@ -1,30 +1,44 @@
-import SmartRenderer from '../../fusioncharts-xt/packages/fc-core/src/component-interface/smart-renderer'
+import { Story } from '../src/lib/story'
 
-class Rectangle extends SmartRenderer {
-  __setDefaultConfig () {
-    this.config.fill = '#511818'
-    this.config.width = 300
-    this.config.height = 300
-    this.config.stroke = 'none'
-  }
+import Note from '../src/lib/metas/note.js'
+import Config from '../src/lib/metas/config.js'
+import Event from '../src/lib/metas/event.js'
 
-  configureAttributes (config = {}) {
-    Object.assign(this.config, config)
-  }
+import Rectangle from '../components/rectangle.js'
 
-  draw () {
-    const { width, height, fill, stroke } = this.config
+const rectangleStory = new Story('Rectangle')
 
-    this.addGraphicalElement({
-      el: 'rect',
-      attr: {
-        height,
-        width,
-        fill,
-        stroke
-      }
-    })
-  }
-}
+rectangleStory.addChapter('with defaults', {
+  content: story => story.attachChild(Rectangle, 'rect'),
+  meta: [
+    new Note('This is the rectangle as it appears by default'),
+    new Config(),
+    new Event()
+  ]
+})
 
-export default Rectangle
+rectangleStory.addChapter('with a small size', {
+  content: story =>
+    story.attachChild(Rectangle, 'rect').configure({ width: 30, height: 30 }),
+  meta: [
+    new Note(
+      'This is the rectangle as it appears when its width and height are 30px'
+    ),
+    new Config(),
+    new Event()
+  ]
+})
+
+rectangleStory.addChapter('with a orange color', {
+  content: story =>
+    story.attachChild(Rectangle, 'rect').configure({ fill: 'orange' }),
+  meta: [
+    new Note(
+      'This is the rectangle as it appears when its width and height are 30px'
+    ),
+    new Config(),
+    new Event()
+  ]
+})
+
+export default rectangleStory

@@ -1,4 +1,4 @@
-import SmartRenderer from '../../../../../fusioncharts-xt/packages/fc-core/src/component-interface/smart-renderer'
+import Component from '../../../../../fusioncharts-xt/packages/fc-core/src/component-interface/component.js'
 import AnimationManager from '../../../../../fusioncharts-xt/packages/fc-core/src/animation-manager'
 import Raphael from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/redraphael/source/raphael'
 import RaphaelCSS from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/redraphael/redraphael.css'
@@ -80,7 +80,7 @@ const getStyleDef = (styleDef = {}) => {
   return styleDef
 }
 
-class FusionStory extends SmartRenderer {
+class FusionStory extends Component {
   constructor () {
     super()
 
