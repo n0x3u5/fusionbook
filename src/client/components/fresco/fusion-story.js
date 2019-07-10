@@ -114,7 +114,7 @@ class FusionStory extends Component {
     }
 
     const { width, height } = paper.canvas.getBoundingClientRect()
-    const setDimension = child => child.setDimension({ width, height })
+    const setDimension = child => child.setDimension(width, height)
 
     config.width = width
     config.height = height
