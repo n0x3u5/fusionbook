@@ -3,10 +3,13 @@ import AnimationManager from '../../../../../fusioncharts-xt/packages/fc-core/sr
 import Raphael from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/redraphael/source/raphael.js'
 import RaphaelCSS from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/redraphael/redraphael.css'
 import SmartLabelManager from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
+import TooltipControllerExtension from '../../../../../fusioncharts-xt/packages/fc-core/src/dummy-tooltip-controller/index.js'
+
 import { merge } from 'lodash-es'
 
 RaphaelCSS(Raphael)
 
+const { extension: DummyTooltipController } = TooltipControllerExtension
 const LINE_HEIGHT_FACTOR = 1.2
 
 const animationManagerFactory = fusionStory => {
@@ -80,6 +83,17 @@ const getStyleDef = (styleDef = {}) => {
   return styleDef
 }
 
+class TooltipController extends DummyTooltipController {
+  enableToolTip (el, text) {
+    el.data('__FC_mousemoveHandler', () => console.log(text))
+    el.on('fc-mousemove', el.data('__FC_mousemoveHandler'))
+  }
+
+  disableToolTip (el) {
+    el.off('fc-mousemove', el.data('__FC_mousemoveHandler'))
+  }
+}
+
 class FusionStory extends Component {
   constructor () {
     super()
@@ -87,6 +101,7 @@ class FusionStory extends Component {
     this.registerFactory('animationManager', animationManagerFactory)
 
     this.addToEnv('smartLabel', new SmartLabelManager(document.body))
+    this.addToEnv('toolTipController', new TooltipController())
     this.addToEnv('getStyleDef', getStyleDef)
   }
 
