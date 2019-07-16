@@ -30,19 +30,21 @@ class Renderer extends Component {
   }
 
   componentDidUpdate () {
-    let { content, id } = this.props
-    let story = this.story
+    let { content, id, updateData } = this.props
+
     if (this.prevId !== id) {
       this.prevId = id
-      Object.keys(story.getChildren()).forEach(key => {
+
+      this.story.remove({ instant: true })
+      this.story = new Story()
+
         if (key !== 'animationManager') {
-          story.getChildren(key).forEach(child => child.removeEventListener('*', this.props.handleEvent))
+          this.story.getChildren(key).forEach(child => child.removeEventListener('*', this.props.handleEvent))
         }
       })
-      story.registerFactory('content', content)
-      story.addEventListener('childattached', this.handleChildAttach)
-      story.setData({
-        id: 'main'
+      this.story.addEventListener('drawn', updateData)
+      this.story.registerFactory('content', content)
+      this.story.addEventListener('childattached', this.handleChildAttach)
       })
     }
   }
