@@ -22,7 +22,7 @@ const animationManagerFactory = fusionStory => {
   animationManager.configure()
   animationManager.setAnimationState('default')
 }
-const hasSetDimension = child => child.setDimension
+
 const parseStrokeDashArray = styleDef => {
   for (var property in styleDef) {
     if (styleDef.hasOwnProperty(property)) {
@@ -36,6 +36,7 @@ const parseStrokeDashArray = styleDef => {
     }
   }
 }
+
 const parseOpacity = styleDef => {
   for (var property in styleDef) {
     if (styleDef.hasOwnProperty(property)) {
@@ -48,6 +49,7 @@ const parseOpacity = styleDef => {
     }
   }
 }
+
 const setLineHeight = (styleObj, baseFontSize) => {
   if (typeof styleObj !== 'object') {
     return
@@ -59,6 +61,7 @@ const setLineHeight = (styleObj, baseFontSize) => {
                 ((parseFloat(styleObj['font-size']) || baseFontSize || 10) * LINE_HEIGHT_FACTOR)
   }
 }
+
 const getStyleDef = (styleDef = {}) => {
   let mergedStyle
 
@@ -107,7 +110,6 @@ class FusionStory extends Component {
 
   __setDefaultConfig () {
     super.__setDefaultConfig()
-    this.config.width = this.config.height = '100%'
   }
 
   configureAttributes (config = {}) {
@@ -118,31 +120,17 @@ class FusionStory extends Component {
   }
 
   draw () {
-    const children = this.getChildren()
-    this.addToEnv('animationManager', children.animationManager.elemStore[0])
-    const config = this.config
-    let paper
+    this.addToEnv('animationManager', this.getChildren('animationManager')[0])
 
-    if (!(paper = this.getFromEnv('paper'))) {
-      paper = Raphael(config.id, config.width, config.height)
-      this.addToEnv('paper', paper)
+    if (!this.getFromEnv('paper')) {
+      this.addToEnv('paper', Raphael(this.config.id, '100%', '100%'))
     }
+  }
 
-    const { width, height } = paper.canvas.getBoundingClientRect()
-    const setDimension = child => child.setDimension(width, height)
-
-    config.width = width
-    config.height = height
-
-    for (const key in children) {
-      if (children.hasOwnProperty(key)) {
-        const childs = children[key].elemStore
-        childs
-          .filter(child => child.config.width == null || child.config.height == null)
-          .filter(hasSetDimension)
-          .forEach(setDimension)
-      }
-    }
+  remove (...args) {
+    this.getFromEnv('paper').remove()
+    document.querySelector('.fusioncharts-smartlabel-container').remove()
+    super.remove(...args)
   }
 }
 

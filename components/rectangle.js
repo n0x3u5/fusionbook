@@ -3,8 +3,6 @@ import Component from '../../fusioncharts-xt/packages/fc-core/src/component-inte
 class Rectangle extends Component {
   __setDefaultConfig () {
     this.config.fill = '#511818'
-    this.config.width = 300
-    this.config.height = 300
     this.config.stroke = 'none'
   }
 
