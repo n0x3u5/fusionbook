@@ -1,6 +1,6 @@
 import Component from '../../../../../fusioncharts-xt/packages/fc-core/src/component-interface/component.js'
-import AnimationManager from '../../../../../fusioncharts-xt/packages/fc-core/src/animation-manager'
-import Raphael from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/redraphael/source/raphael'
+import AnimationManager from '../../../../../fusioncharts-xt/packages/fc-core/src/animation-manager/index.js'
+import Raphael from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/redraphael/source/raphael.js'
 import RaphaelCSS from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/redraphael/redraphael.css'
 import SmartLabelManager from '../../../../../fusioncharts-xt/packages/fc-core/src/_internal/vendors/fusioncharts-smartlabel/src/SmartlabelManager.js'
 import { merge } from 'lodash-es'
