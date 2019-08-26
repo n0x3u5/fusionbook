@@ -9,12 +9,7 @@ import Rectangle from '../components/rectangle.js'
 const rectangleStory = new Story('Rectangle')
 
 rectangleStory.addChapter('with defaults', {
-  content: story => {
-    const { availableWidth, availableHeight } = story.config
-    const rectangle = story.attachChild(Rectangle, 'rect')
-
-    rectangle.setDimension(availableWidth, availableHeight)
-  },
+  content: story => story.attachChild(Rectangle, 'rect'),
   meta: [
     new Note('This is the rectangle as it appears by default, when its provided a width of 300 and a height of 300'),
     new Config(),
@@ -24,9 +19,8 @@ rectangleStory.addChapter('with defaults', {
 
 rectangleStory.addChapter('with a small size', {
   content: story => {
-    const rectangle = story.attachChild(Rectangle, 'rect')
-
-    rectangle.setDimension(30, 30)
+    story.attachChild(Rectangle, 'rect')
+    story.provideDimension({ width: 30, height: 30 })
   },
   meta: [
     new Note(
@@ -39,12 +33,9 @@ rectangleStory.addChapter('with a small size', {
 
 rectangleStory.addChapter('with a orange color', {
   content: story => {
-    const { availableWidth, availableHeight } = story.config
     const rectangle = story.attachChild(Rectangle, 'rect')
 
     rectangle.configure({ fill: 'orange' })
-
-    rectangle.setDimension(availableWidth, availableHeight)
   },
   meta: [
     new Note(

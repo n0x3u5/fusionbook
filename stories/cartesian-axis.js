@@ -10,14 +10,13 @@ const cartesianAxisStory = new Story('Cartesian Axis')
 
 cartesianAxisStory.addChapter('default (horizontal), axis name', {
   content: story => {
-    const { availableWidth, availableHeight } = story.config
     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+    cartesianAxis.setLinkedItem('canvas', { config: { canvasBorderWidth: 0 } })
     cartesianAxis.configure({
       axisName: 'Hello World'
     })
-    cartesianAxis.setDimension(availableWidth, availableHeight)
   },
   meta: [
     new Note('This is the cartesian axis as it appears by default'),
@@ -26,138 +25,138 @@ cartesianAxisStory.addChapter('default (horizontal), axis name', {
   ]
 })
 
-cartesianAxisStory.addChapter('default (horizontal), axis name, 30x25', {
-  content: story => {
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('default (horizontal), axis name, 30x25', {
+//   content: story => {
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World'
-    })
-    cartesianAxis.setDimension(30, 25)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World'
+//     })
+//     cartesianAxis.setDimension(30, 25)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name', {
-  content: story => {
-    const { availableWidth, availableHeight } = story.config
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name', {
+//   content: story => {
+//     const { availableWidth, availableHeight } = story.config
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true
-    })
-    cartesianAxis.setDimension(availableWidth, availableHeight)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true
+//     })
+//     cartesianAxis.setDimension(availableWidth, availableHeight)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name, 25x30', {
-  content: story => {
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name, 25x30', {
+//   content: story => {
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true
-    })
-    cartesianAxis.setDimension(25, 30)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true
+//     })
+//     cartesianAxis.setDimension(25, 30)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name bottom', {
-  content: story => {
-    const { availableWidth, availableHeight } = story.config
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name bottom', {
+//   content: story => {
+//     const { availableWidth, availableHeight } = story.config
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true,
-      drawAxisNameFromBottom: true
-    })
-    cartesianAxis.setDimension(availableWidth, availableHeight)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true,
+//       drawAxisNameFromBottom: true
+//     })
+//     cartesianAxis.setDimension(availableWidth, availableHeight)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name rotated', {
-  content: story => {
-    const { availableWidth, availableHeight } = story.config
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name rotated', {
+//   content: story => {
+//     const { availableWidth, availableHeight } = story.config
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true,
-      rotateAxisName: true
-    })
-    cartesianAxis.setDimension(availableWidth, availableHeight)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true,
+//       rotateAxisName: true
+//     })
+//     cartesianAxis.setDimension(availableWidth, availableHeight)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name rotated, 30x25', {
-  content: story => {
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name rotated, 30x25', {
+//   content: story => {
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true,
-      rotateAxisName: true
-    })
-    cartesianAxis.setDimension(30, 25)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true,
+//       rotateAxisName: true
+//     })
+//     cartesianAxis.setDimension(30, 25)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
-cartesianAxisStory.addChapter('vertical, axis name bottom rotated', {
-  content: story => {
-    const { availableWidth, availableHeight } = story.config
-    const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
+// cartesianAxisStory.addChapter('vertical, axis name bottom rotated', {
+//   content: story => {
+//     const { availableWidth, availableHeight } = story.config
+//     const cartesianAxis = story.attachChild(Cartesian, 'cartesianAxis')
 
-    cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
-    cartesianAxis.configure({
-      axisName: 'Hello World',
-      isVertical: true,
-      rotateAxisName: true,
-      drawAxisNameFromBottom: true
-    })
-    cartesianAxis.setDimension(availableWidth, availableHeight)
-  },
-  meta: [
-    new Note('This is the cartesian axis as it appears by default'),
-    new Config(),
-    new Event()
-  ]
-})
+//     cartesianAxis.addToEnv('number-formatter', { getCleanValue: parseFloat })
+//     cartesianAxis.configure({
+//       axisName: 'Hello World',
+//       isVertical: true,
+//       rotateAxisName: true,
+//       drawAxisNameFromBottom: true
+//     })
+//     cartesianAxis.setDimension(availableWidth, availableHeight)
+//   },
+//   meta: [
+//     new Note('This is the cartesian axis as it appears by default'),
+//     new Config(),
+//     new Event()
+//   ]
+// })
 
 export default cartesianAxisStory

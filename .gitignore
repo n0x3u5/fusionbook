@@ -62,3 +62,6 @@ typings/
 
 # build files
 dist
+
+# rollup-plugin-typescript2 cache
+.rpt2_cache

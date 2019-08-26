@@ -110,6 +110,8 @@ class FusionStory extends Component {
 
   __setDefaultConfig () {
     super.__setDefaultConfig()
+
+    this.config.layoutStyle = null;
   }
 
   configureAttributes (config = {}) {
@@ -117,6 +119,24 @@ class FusionStory extends Component {
 
     this.addToEnv('core-options', {})
     this.addToEnv('chartInstance', { args: {} })
+  }
+
+  provideDimension (layoutStyle = { position: 'relative' }) {
+    this.config.layoutStyle = layoutStyle;
+  }
+
+  layout () {
+    const {
+      availableWidth: width,
+      availableHeight: height,
+      layoutStyle
+    } = this.config
+
+    if (layoutStyle != null) {
+      this.setLayoutStyle(layoutStyle)
+    } else {
+      this.setLayoutStyle({ position: 'relative', width, height })
+    }
   }
 
   draw () {

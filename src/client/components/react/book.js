@@ -3,7 +3,7 @@ import { array } from 'prop-types'
 import TableOfContents from './table-of-contents'
 import MetaInfo from './meta-info'
 import './book.css'
-import Renderer from './renderer'
+import Renderer from './renderer_new'
 
 const isMeta = metaName => ({ name }) => name === metaName
 const isMetaConfig = isMeta('Configuration')
