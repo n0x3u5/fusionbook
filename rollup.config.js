@@ -20,7 +20,11 @@ export default {
   plugins: [
     resolve(),
     replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),
-    commonjs(),
+    commonjs({
+      namedExports: {
+        'react-is': ['isForwardRef']
+      }
+    }),
     scss(),
     rollupTS({
       typescript,

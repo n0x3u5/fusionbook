@@ -1,3 +1,6 @@
-import { Story } from '../src/lib/story'
+import { Story, FrescoParser } from '../src/lib/story'
+import rectangleStory from './rectangle'
 
-export default []
+Story.registerParser(FrescoParser)
+
+export default [rectangleStory]
