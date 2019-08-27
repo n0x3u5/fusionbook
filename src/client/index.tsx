@@ -3,6 +3,13 @@ import * as ReactDOM from 'react-dom'
 
 import 'semantic-ui-css/semantic.min.css'
 
-const a = "hi"
+import stories from '../../stories/index'
 
-ReactDOM.render(<div id={a}>Hello!</div>, document.querySelector('#fusionbook-root'))
+const a = 'hi'
+
+console.log(stories);
+
+ReactDOM.render(
+  <div id={a}>Hello!</div>,
+  document.querySelector('#fusionbook-root')
+)
