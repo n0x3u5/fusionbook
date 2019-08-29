@@ -1,9 +1,10 @@
 import rollupTS from 'rollup-plugin-typescript2'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import html from 'rollup-plugin-fill-html';
-import replace from 'rollup-plugin-replace';
-import scss from 'rollup-plugin-scss'
+import html from 'rollup-plugin-fill-html'
+import replace from 'rollup-plugin-replace'
+import postcss from 'rollup-plugin-postcss'
+import postcssCopy from 'postcss-copy'
 import typescript from 'typescript'
 
 export default {
@@ -11,6 +12,7 @@ export default {
   output: {
     file: './dist/bundle.js',
     format: 'iife',
+    name: 'customName',
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM'
@@ -21,18 +23,16 @@ export default {
     resolve(),
     replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),
     commonjs({
-      namedExports: {
-        'react-is': ['isForwardRef']
-      }
+      namedExports: { 'react-is': ['isForwardRef'] }
     }),
-    scss(),
+    postcss({
+      extract: true,
+      plugins: [ postcssCopy({ dest: 'dist' }) ]
+    }),
     rollupTS({
       typescript,
-      clean: true,
       tsconfigOverride: {
-        compilerOptions: {
-          jsx: 'react'
-        }
+        compilerOptions: { jsx: 'react' }
       }
     }),
     html({

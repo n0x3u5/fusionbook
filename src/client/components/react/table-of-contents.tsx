@@ -2,6 +2,9 @@ import * as React from 'react'
 import Accordion from 'semantic-ui-react/dist/es/modules/Accordion/Accordion'
 import Icon from 'semantic-ui-react/dist/es/elements/Icon'
 import List from 'semantic-ui-react/dist/es/elements/List'
+import ListItem from 'semantic-ui-react/dist/es/elements/List/ListItem'
+
+import SearchBar from './search-bar'
 
 import { Story } from '../../../lib/story'
 
@@ -12,7 +15,7 @@ const TableOfContents = (props: { stories: Story[] }) => {
   const createStories = () => {
     const createChapters = (chapters, storyIndex) => {
       return chapters.map((chapter, id) => (
-        <List.Item key={id}>{chapter.name}</List.Item>
+        <ListItem key={id}>{chapter.name}</ListItem>
       ))
     }
 
@@ -35,6 +38,7 @@ const TableOfContents = (props: { stories: Story[] }) => {
   return (
     <div className="sidebar">
       <h2>FusionBook</h2>
+      <SearchBar />
       <Accordion>
         {createStories()}
       </Accordion>
