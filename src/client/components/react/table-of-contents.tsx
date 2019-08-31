@@ -38,7 +38,7 @@ const TableOfContents = (props: { stories: Story[] }) => {
   return (
     <div className="sidebar">
       <h2>FusionBook</h2>
-      <SearchBar />
+      <SearchBar stories={stories} />
       <Accordion>
         {createStories()}
       </Accordion>
