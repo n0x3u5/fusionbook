@@ -13,17 +13,10 @@ class Rectangle extends Component {
   draw () {
     const { fill, stroke } = this.config
     const { x, y, width, height } = this.getLayout()
-    console.log(x, y, width, height)
+
     this.addGraphicalElement({
       el: 'rect',
-      attr: {
-        x,
-        y,
-        height,
-        width,
-        fill,
-        stroke
-      }
+      attr: { x, y, height, width, fill, stroke }
     })
   }
 }

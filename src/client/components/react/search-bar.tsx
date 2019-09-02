@@ -2,33 +2,33 @@ import * as React from 'react'
 
 import Search from 'semantic-ui-react/dist/es/modules/Search'
 
-import { Story } from '../../../lib/story'
+import { Story, Chapter } from '../../../lib/story'
 
 const { useState } = React;
+const includesCaseInsensitive = (domain, subject: string) : string => domain.toLowercase().includes(subject.toLowerCase())
+const nonEmptyStories = story => story.chapters.length > 0
 
-const SearchBar = (props: { stories: Story[] }) => {
-  const { stories } = props
+const SearchBar = ({ stories, filterContents }: { stories: Story[], filterContents: Function }) => {
   const [value, setValue] = useState('')
-  const handleSearchChange = (e, d: { value: string }) => {
-    const { value } = d
-    const valueLowerCase = value.toLowerCase()
-    setValue(value)
+
+  const handleSearchChange = (e, { value: val }: { value: string }) => {
+    setValue(val)
+
+    const matchingEntities = (entity: Story | Chapter) =>
+      includesCaseInsensitive(entity.name, val),
+      matchChapters = story => ({
+        ...story,
+        chapters: story.chapters.filter(matchingEntities)
+      })
 
     const storiesWithMatchingChapters = stories
-      .map(story => {
-        return {
-          ...story,
-          chapters: story.chapters.filter(chapter => {
-            return chapter.name.toLowerCase().includes(valueLowerCase)
-          })
-        }
-      })
-      .filter(story => story.chapters.length > 0);
+      .map(matchChapters)
+      .filter(nonEmptyStories);
 
-    if (storiesWithMatchingChapters.length === 0) {
-      stories.filter(story => story.name.toLowerCase().includes(valueLowerCase))
+    if (storiesWithMatchingChapters.length) {
+      filterContents(storiesWithMatchingChapters)
     } else {
-      storiesWithMatchingChapters
+      filterContents(stories.filter(matchingEntities))
     }
   }
 

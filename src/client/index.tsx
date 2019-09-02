@@ -8,6 +8,6 @@ import Book from './components/react/book'
 import stories from '../../stories/index'
 
 ReactDOM.render(
-  <Book stories={stories}/>,
+  <Book stories={stories} />,
   document.querySelector('#fusionbook-root')
 )

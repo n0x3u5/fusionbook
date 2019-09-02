@@ -148,8 +148,15 @@ class FusionStory extends Component {
   }
 
   remove (...args) {
-    this.getFromEnv('paper').remove()
-    document.querySelector('.fusioncharts-smartlabel-container').remove()
+    const paper = this.getFromEnv('paper')
+    const smartLabelContainer = document.querySelector(
+      '.fusioncharts-smartlabel-container'
+    )
+
+    if (paper) paper.remove()
+
+    if (smartLabelContainer) smartLabelContainer.remove()
+
     super.remove(...args)
   }
 }

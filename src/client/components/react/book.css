@@ -14,7 +14,7 @@
   overflow: auto;
 }
 
-.content {
+.book-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -24,6 +24,10 @@
 .ui.bulleted.list {
   padding-left: 15px;
   cursor: pointer;
+}
+
+.ui.bulleted.list .active.item {
+  font-weight: bold;
 }
 
 .main {
@@ -80,4 +84,8 @@
 
 .accordion.ui {
   margin-top: 13px;
+}
+
+.accordion.ui .active.title {
+  font-weight: bold;
 }

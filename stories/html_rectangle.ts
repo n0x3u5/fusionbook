@@ -9,7 +9,9 @@ const rectangleStory = new Story('Rectangle').addMetas([
 
 rectangleStory.addChapter(
   'with defaults',
-  story => story.attachChild(Rectangle, 'rect'),
+  story => {
+    story.appendChild(Rectangle, 'rect')
+  },
   [
     notes('This is the rectangle as it appears by default.')
   ]

@@ -3,4 +3,4 @@ import rectangleStory from './rectangle'
 
 Story.registerParser(FrescoParser)
 
-export default [rectangleStory]
+export default [rectangleStory, rectangleStory]

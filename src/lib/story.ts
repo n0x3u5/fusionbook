@@ -11,6 +11,8 @@ interface Chapter {
 
 class FrescoParser {}
 
+const notes = (info: string): Meta => ({ name: 'Notes', info })
+
 class Story {
   name: string
   chapters: Chapter[] = []
@@ -42,4 +44,4 @@ class Story {
   }
 }
 
-export { Story, FrescoParser }
+export { Chapter, Meta, Story, FrescoParser, notes }
