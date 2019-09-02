@@ -74,6 +74,7 @@ const Book = ({ stories }: { stories: Story[] }) => {
           () => (
             <Renderer
               key={id}
+              type="html"
               onDrawn={handleDrawn}
               content={story.content}
               onConfigured={handleConfigured}

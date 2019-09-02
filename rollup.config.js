@@ -66,7 +66,7 @@ export default {
       typescript,
       clean: true,
       tsconfigOverride: {
-        compilerOptions: { jsx: 'react' }
+        compilerOptions: { jsx: 'react', target: 'ESNext' }
       }
     }),
     html({ filename: PATH_DEST_HTML, template: PATH_SRC_HTML }),

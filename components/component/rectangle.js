@@ -1,4 +1,4 @@
-import Component from '../../fusioncharts-xt/packages/fc-core/src/component-interface/component.js'
+import Component from '../../../fusioncharts-xt/packages/fc-core/src/component-interface/component.js'
 
 class Rectangle extends Component {
   __setDefaultConfig () {
