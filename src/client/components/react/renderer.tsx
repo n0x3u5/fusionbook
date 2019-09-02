@@ -1,6 +1,12 @@
 import * as React from 'react'
-import Component from '../../../../../fusioncharts-xt/packages/fc-core/src/component-interface/component'
-import Story from '../fresco/fusion-story'
+// import Story from '../fresco/fusion-story'
+
+class Story {
+  registerFactory (a, b) {}
+  addEventListener (a, b) {}
+  setData (a) {}
+  remove (a) {}
+}
 
 const { useEffect, useRef } = React
 
@@ -42,7 +48,7 @@ const Renderer = ({
         ({
           data: { attachedChild }
         }: {
-          data: { attachedChild: Component }
+          data: { attachedChild }
         }) => {
           if (attachedChild.getType() !== 'animationManager') {
             attachedChild.addEventListener('*', onEventTrigger)

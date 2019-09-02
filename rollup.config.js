@@ -12,6 +12,7 @@ import typescript from 'typescript'
 
 const NODE_ENV = process.env.NODE_ENV
 const IS_PROD = NODE_ENV === 'production'
+const IS_DEV = !IS_PROD
 const NAME_MID_REACT = IS_PROD ? 'production.min' : 'development'
 const NAME_REACT = `react.${NAME_MID_REACT}.js`
 const NAME_REACT_DOM = `react-dom.${NAME_MID_REACT}.js`
@@ -47,6 +48,7 @@ export default {
     }
   },
   external: ['react', 'react-dom'],
+  onwarn: msg => { if (!/semantic-ui-react/.test(msg)) console.warn(msg) },
   plugins: [
     resolve(),
     replace({ 'process.env.NODE_ENV': JSON.stringify(NODE_ENV) }),
@@ -64,13 +66,16 @@ export default {
     }),
     rollupTS({
       typescript,
-      clean: true,
+      check: IS_DEV,
+      clean: IS_DEV,
+      objectHashIgnoreUnknownHack: IS_PROD,
       tsconfigOverride: {
         compilerOptions: { jsx: 'react', target: 'ESNext' }
       }
     }),
     html({ filename: PATH_DEST_HTML, template: PATH_SRC_HTML }),
     copy({
+      copyOnce: IS_PROD,
       targets: [
         {
           src: PATH_SRC_REACT_DOM,
