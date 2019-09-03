@@ -40,6 +40,24 @@ ratingStory.addChapter(
   ]
 )
 ratingStory.addChapter(
+  'Check width and height negative value',
+  story => {
+    let args = {
+      'container': story,
+      'height': '-1',
+      'width': '-1',
+      'fill': 'red',
+      'stroke': 'blue',
+      'direction': 0,
+      'stroke-width': 5
+    }
+    rating(args)
+  },
+  [
+    notes('This is the rating as it appears by default.')
+  ]
+)
+ratingStory.addChapter(
   'horizontal',
   story => {
     let args = {
