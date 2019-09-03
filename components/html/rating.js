@@ -53,16 +53,16 @@ export default function createStar (args) {
     console.error('Number of args is not correct')
     return null
   }
-  if (height === undefined || !height.match(/^[0-9]/i)) {
-    console.error('Height is undefined or is a negative value')
+  if (height <= 0 || height === undefined || !height.match(/^[0-9]/i)) {
+    console.error('Height is undefined or is a negative value or is 0')
     return null
   }
-  if (width === undefined || !width.match(/^[0-9]/i)) {
+  if (width <= 0 || width === undefined || !width.match(/^[0-9]/i)) {
     console.error('Width is undefined or is a negative value')
     return null
   }
   if (strokeWidth < 0 || strokeWidth === undefined || Number.isNaN(strokeWidth)) {
-    console.error('StrokeWidth is undefined or is a negative value')
+    console.error('StrokeWidth is undefined or is a negative value or is 0')
     return null
   }
   if (fill === undefined) {
