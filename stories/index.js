@@ -1,4 +1,4 @@
 import rectangleStory from './rectangle'
 import circleStory from './circle'
-
-export default [rectangleStory, circleStory]
+import ratingStory from './rating';
+export default [rectangleStory, circleStory, ratingStory]
