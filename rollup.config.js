@@ -93,7 +93,12 @@ export default {
     }
   },
   plugins: IS_SERVED
-    ? plugins.concat([serve({ contentBase: PATH_OUT_DIR }), livereload()])
+    ? plugins.concat([
+      serve({ contentBase: PATH_OUT_DIR }),
+      livereload({
+        exclusions: ['.git', '.svn', '.hg', 'node_modules', '.rpt2_cache']
+      })
+    ])
     : plugins,
   watch: { clearScreen: false }
 }
