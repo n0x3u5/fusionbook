@@ -1,7 +1,5 @@
 'use strict'
 
-import { number } from 'prop-types'
-
 function createDOMNode () {
   const xlmnsSvg = 'http://www.w3.org/2000/svg'
   let nodeName = arguments[0]
@@ -51,24 +49,29 @@ export default function createStar (args) {
   let postColorFill = args['post-rating-fill-color']
   let preStrokeColor = args['pre-stroke-color']
   let postStrokeColor = args['post-stroke-color']
-
   if (container === undefined) {
-    throw new Error('Number of args is not correct')
+    console.error('Number of args is not correct')
+    return null
   }
   if (height < 0 || height === undefined) {
-    throw new Error('Height is undefined or is a negative value')
+    console.error('Height is undefined or is a negative value')
+    return null
   }
   if (width < 0 || width === undefined) {
-    throw new Error('Width is undefined or is a negative value')
+    console.error('Width is undefined or is a negative value')
+    return null
   }
   if (strokeWidth < 0 || strokeWidth === undefined) {
-    throw new Error('StrokeWidth is undefined or is a negative value')
+    console.error('StrokeWidth is undefined or is a negative value')
+    return null
   }
   if (fill === undefined) {
-    throw new Error('fill is undefined or has wrong value')
+    console.error('fill is undefined or has wrong value')
+    return null
   }
   if (stroke === undefined) {
-    throw new Error('stroke is undefined or has wrong value')
+    console.error('stroke is undefined or has wrong value')
+    return null
   }
   if (direction === undefined) {
     direction = 1
@@ -78,16 +81,16 @@ export default function createStar (args) {
     console.warn('numberOfStars is undefined or is not a valid value')
   }
   if (preColorFill === undefined) {
-    preColorFill = 'black'
+    preColorFill = fill
   }
   if (postColorFill === undefined) {
-    postColorFill = 'white'
+    postColorFill = fill
   }
   if (preStrokeColor === undefined) {
-    preColorFill = 'blue'
+    preStrokeColor = stroke
   }
   if (postStrokeColor === undefined) {
-    postColorFill = 'brown'
+    postStrokeColor = stroke
   }
   let attrSvg = {
     'width': width,
@@ -179,7 +182,7 @@ export default function createStar (args) {
         rating -= 1
       } else if (rating > 0 && rating < 1) {
         path.setAttribute('fill', 'url(#gradient-svg-fill)')
-        path.setAttribute('stroke', 'url(#gradient-svg-stroke')
+        path.setAttribute('stroke', 'url(#gradient-svg-stroke)')
         rating -= 1
       } else {
         path.setAttribute('fill', postColorFill)
