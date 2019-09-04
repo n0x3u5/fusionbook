@@ -28,12 +28,12 @@ const Renderer = ({
   useEffect(() => {
     if (type === 'html') {
       content(mainRef.current)
+      const childAttrs = mainRef.current.children.length > 0
+        ? [...mainRef.current.children[0].attributes]
+        : []
       onConfigured(
         Object.fromEntries(
-          [...mainRef.current.children[0].attributes].map(({ name, value }) => [
-            name,
-            value
-          ])
+          childAttrs.map(({ name, value }) => [name, value])
         )
       )
       onDrawn()
