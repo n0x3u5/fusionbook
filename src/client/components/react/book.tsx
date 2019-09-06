@@ -28,7 +28,7 @@ const Book = ({ stories }: { stories: Story[] }) => {
   const id = '' + activeStoryIdx + activeStoryChapterIdx
 
   const handleChapterSelect = (storyIdx: number, chapterIdx: number) => {
-    metaContentsRef.current = story.metas
+    metaContentsRef.current = stories[storyIdx].chapters[chapterIdx].metas
     setActiveStoryIdx(storyIdx)
     setActiveStoryChapterIdx(chapterIdx)
   }
