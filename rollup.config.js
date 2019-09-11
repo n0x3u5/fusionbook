@@ -44,7 +44,15 @@ const plugins = [
   resolve(),
   replace({ 'process.env.NODE_ENV': JSON.stringify(NODE_ENV) }),
   commonjs({
-    namedExports: { 'react-is': ['isForwardRef'] }
+    namedExports: {
+      'prop-types': [
+        'element',
+        'oneOfType',
+        'func',
+        'object'
+      ],
+      'react-is': ['isForwardRef']
+    }
   }),
   postcss({
     extract: true,
