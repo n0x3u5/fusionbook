@@ -1,13 +1,18 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import stories from '../../stories/index';
+import TableOfContents from './components/react/table-of-contents';
+// import Book from './components/react/book'
+import './index.css';
 
-import 'semantic-ui-css/semantic.min.css'
-
-import Book from './components/react/book'
-
-import stories from '../../stories/index'
+const el = document.createElement('div');
+el.setAttribute('id', 'fusionbook-root');
+document.body.appendChild(el);
 
 ReactDOM.render(
-  <Book stories={stories} />,
+  <React.StrictMode>
+    <TableOfContents stories={stories} />
+  </React.StrictMode>,
+  // <Book stories={stories} />
   document.querySelector('#fusionbook-root')
-)
+);

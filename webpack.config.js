@@ -1,67 +1,42 @@
-const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const NODE_ENV = process.env.NODE_ENV;
+const IS_PROD = NODE_ENV === 'production';
+const PATH_INPUT_FILE = path.resolve(__dirname, 'src', 'client', 'index.tsx');
+const PATH_OUT_DIR = path.resolve(__dirname, 'dist');
+const OUT_FILE = 'bundle.js';
+
+const plugins = [new MiniCssExtractPlugin(), new HtmlWebpackPlugin()];
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: PATH_INPUT_FILE,
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
+    filename: OUT_FILE,
+    path: PATH_OUT_DIR
   },
-  plugins: [
-    // generate HTML for the project
-    new HtmlWebpackPlugin({
-      title: 'FusionBook',
-      template: './src/client/index.html'
-    }),
-    // extract CSS chunks
-    new MiniCssExtractPlugin({
-      filename: '[name].css'
-    }),
-    // minify CSS
-    new OptimizeCssAssetsPlugin()
-  ],
+  mode: IS_PROD ? 'production' : 'development',
+  devtool: IS_PROD ? 'source-map' : 'inline-source-map',
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
   module: {
     rules: [
-      // transpile JS using babel
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: 'babel-loader'
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: { onlyCompileBundledFiles: true }
       },
-      // deal with CSS imports and load extracted CSS chunks
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
-          { loader: MiniCssExtractPlugin.loader },
-          'css-loader'
+          { loader: MiniCssExtractPlugin.loader, options: { esModule: true } },
+          { loader: 'css-loader', options: { esModule: true } }
         ]
-      },
-      // deal with images
-      {
-        test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$/,
-        use: 'file-loader?name=[name].[ext]?[hash]'
-      },
-      // deal with fonts
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'application/font-woff'
-        }
-      },
-      {
-        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader'
       }
     ]
   },
-  // configures the development server
-  devServer: {
-    host: '0.0.0.0',
-    port: 8081,
-    overlay: true
-  }
-}
+  plugins: IS_PROD ? plugins.concat(new OptimizeCssAssetsPlugin()) : plugins
+};

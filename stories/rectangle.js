@@ -1,36 +1,36 @@
-import { Story, notes, configs } from '../src/lib/story'
-import rectangle from '../components/html/rectangle'
+import {
+  notes,
+  story,
+  events,
+  chapter,
+  configs,
+  addMetasTo,
+  addChaptersTo
+} from '../src/lib/story'
 
-const rectangleStory = new Story('Rectangle').addMetas([configs()])
+const rectangleStory = addMetasTo([configs(), events()], story('Rectangle'))
+const addChaptersToRectangle = addChaptersTo(rectangleStory)
 
-rectangleStory.addChapter(
+const defaultsChapter = chapter(
   'with defaults',
-  story => {
-    rectangle(story)
-  },
-  [
-    notes('This is the rectangle as it appears by default.')
-  ]
+  story => { console.log(story) },
+  [notes('A default rectangle')]
 )
 
-rectangleStory.addChapter(
-  'with a 30px dimensions',
-  story => {
-    rectangle(story, { width: '30px', height: '30px' })
-  },
-  [
-    notes('This is the rectangle as it appears by default, with 30px width and height')
-  ]
+const smallSizeChapter = chapter(
+  'with a small size',
+  story => { console.log(story) },
+  [notes('A 30px by 30px rectangle')]
 )
 
-rectangleStory.addChapter(
-  'with a orange color',
-  story => {
-    rectangle(story, { bgColor: 'orange' })
-  },
-  [
-    notes('This is the rectangle as it appears when rendered with an orange fill.')
-  ]
+const orangeChapter = chapter(
+  'with orange color',
+  story => { console.log(story) },
+  [notes('An orange rectangle')]
 )
 
-export default rectangleStory
+export default addChaptersToRectangle([
+  defaultsChapter,
+  smallSizeChapter,
+  orangeChapter
+])

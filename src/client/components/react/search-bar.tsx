@@ -1,38 +1,53 @@
 import * as React from 'react'
 
-import Search from 'semantic-ui-react/dist/es/modules/Search'
+import { Story } from '../../../lib/story/index'
 
-import { Story, Chapter } from '../../../lib/story'
+const { useState } = React
 
-const { useState } = React;
-const includesCaseInsensitive = (domain, subject: string) : string => domain.toLowercase().includes(subject.toLowerCase())
-const nonEmptyStories = story => story.chapters.length > 0
+const includesCaseInsensitive = (domain: string, subject: string): boolean =>
+  domain.toLowerCase().includes(subject.toLowerCase())
+const isEmpty = (arr: readonly unknown[]): boolean => arr.length === 0
 
-const SearchBar = ({ stories, filterContents }: { stories: Story[], filterContents: Function }) => {
-  const [value, setValue] = useState('')
+const SearchBar = ({
+  stories = [],
+  onSearch
+}: {
+  stories?: ReadonlyArray<Story>
+  onSearch?: (stories: ReadonlyArray<Story>, searchText: string) => void
+}): React.ReactComponentElement<'input'> => {
+  const [searchText, setSearchText] = useState('')
 
-  const handleSearchChange = (e, { value: val }: { value: string }) => {
-    setValue(val)
+  const handleSearchChange = ({
+    target: { value }
+  }: {
+    target: { value: string }
+  }): void => {
+    setSearchText(value)
 
-    const matchingEntities = (entity: Story | Chapter) =>
-      includesCaseInsensitive(entity.name, val),
-      matchChapters = story => ({
-        ...story,
-        chapters: story.chapters.filter(matchingEntities)
-      })
+    const nameHasSearchText = ({ name }: { name: string }): boolean =>
+      includesCaseInsensitive(name, value)
 
-    const storiesWithMatchingChapters = stories
-      .map(matchChapters)
-      .filter(nonEmptyStories);
+    const matchStoriesReducer = (
+      acc: ReadonlyArray<Story>,
+      story: Story
+    ): ReadonlyArray<Story> => {
+      const chapters = story.chapters.filter(nameHasSearchText)
 
-    if (storiesWithMatchingChapters.length) {
-      filterContents(storiesWithMatchingChapters)
-    } else {
-      filterContents(stories.filter(matchingEntities))
+      if (!isEmpty(chapters)) {
+        return acc.concat({ ...story, chapters })
+      } else if (nameHasSearchText(story)) {
+        return acc.concat(story)
+      } else {
+        return acc
+      }
     }
+
+    const matchingStories = stories.reduce(matchStoriesReducer, [])
+
+    if (onSearch) onSearch(matchingStories, searchText)
   }
 
-  return <Search value={value} onSearchChange={handleSearchChange} />
+  return <input type="text" value={searchText} onChange={handleSearchChange} />
 }
 
-export default SearchBar;
+export default SearchBar

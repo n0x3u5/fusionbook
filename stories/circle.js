@@ -1,36 +1,36 @@
-import { Story, notes, configs } from '../src/lib/story'
-import circle from '../components/html/circle'
+import {
+  notes,
+  story,
+  events,
+  chapter,
+  configs,
+  addMetasTo,
+  addChaptersTo
+} from '../src/lib/story'
 
-const circleStory = new Story('Circle').addMetas([configs()])
+const circleStory = addMetasTo([configs(), events()], story('Circle'))
+const addChaptersToCircle = addChaptersTo(circleStory)
 
-circleStory.addChapter(
+const defaultsChapter = chapter(
   'with defaults',
-  story => {
-    circle(story)
-  },
-  [
-    notes('This is the circle as it appears by default.')
-  ]
+  story => { console.log(story) },
+  [notes('A default circle')]
 )
 
-circleStory.addChapter(
-  'with a 30px dimensions',
-  story => {
-    circle(story, { width: '30px', height: '30px' })
-  },
-  [
-    notes('This is the circle as it appears by default, with 30px width and height')
-  ]
+const smallSizeChapter = chapter(
+  'with a medium size',
+  story => { console.log(story) },
+  [notes('A 100px by 100px circle')]
 )
 
-circleStory.addChapter(
-  'with a orange color',
-  story => {
-    circle(story, { bgColor: 'orange' })
-  },
-  [
-    notes('This is the circle as it appears when rendered with an orange fill.')
-  ]
+const orangeChapter = chapter(
+  'with green color',
+  story => { console.log(story) },
+  [notes('An orange circle')]
 )
 
-export default circleStory
+export default addChaptersToCircle([
+  defaultsChapter,
+  smallSizeChapter,
+  orangeChapter
+])

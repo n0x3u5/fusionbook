@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Story } from '../../../lib/story'
+import { Story } from '../../../lib/story/index'
 import './book.css'
 import Renderer from './renderer'
 import MetaInfo from './meta-info'

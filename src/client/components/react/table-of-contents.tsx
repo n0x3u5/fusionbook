@@ -1,62 +1,78 @@
 import * as React from 'react'
-import Icon from 'semantic-ui-react/dist/es/elements/Icon'
-import List from 'semantic-ui-react/dist/es/elements/List'
-import ListItem from 'semantic-ui-react/dist/es/elements/List/ListItem'
-import Accordion from 'semantic-ui-react/dist/es/modules/Accordion/Accordion'
-import { Story, Chapter } from '../../../lib/story'
+import SearchBar from './search-bar'
+import { Story, Chapter } from '../../../lib/story/index'
 
 const { useState } = React
+
+const TOCStory = () => {}
 
 const TableOfContents = ({
   stories,
   onChapterSelect
 }: {
-  stories: Story[]
-  onChapterSelect: (storyIdx: number, chapterIdx: number) => void
-}) => {
-  const [openedStoryIndex, setOpenedStoryIndex] = useState(0)
-  const [activeStoryChapterID, setActiveStoryChapterID] = useState('0-0')
+  stories: ReadonlyArray<Story>
+  onChapterSelect?: (storyIdx: null | string, chapterIdx: string) => void
+}): React.ReactComponentElement<'div'> => {
+  const [yoStories, setYoStories] = useState(stories)
+  const [openedStoryID, setOpenedStoryID] = useState(
+    yoStories.length
+      ? yoStories[0].chapters.length
+        ? yoStories[0].chapters[0].ownerID
+        : null
+      : null
+  )
+  const [activeStoryID, setActiveStoryID] = useState(
+    yoStories.length
+      ? yoStories[0].chapters.length
+        ? yoStories[0].chapters[0].ownerID
+        : null
+      : null
+  )
+  const [activeChapterID, setActiveChapterID] = useState(
+    yoStories.length
+      ? yoStories[0].chapters.length
+        ? yoStories[0].chapters[0].id
+        : null
+      : null
+  )
 
-  const storyClickHandler = (e, { index }: { index: number }) =>
-    setOpenedStoryIndex(index)
+  const createChapter = (
+    chapter: Chapter
+  ): React.ReactComponentElement<'li'> => (
+    <li
+      key={chapter.id}
+      className={
+        chapter.id === activeChapterID && chapter.ownerID === activeStoryID
+          ? 'active'
+          : undefined
+      }
+      onClick={(): void => {
+        const { ownerID, id } = chapter
 
-  const createChapter = (chapter: Chapter, id: string) => (
-    <ListItem
-      key={id}
-      active={activeStoryChapterID === id}
-      onClick={() => {
-        const [storyIdx, chapterIdx] = id.split('-')
+        setActiveStoryID(ownerID)
+        setActiveChapterID(id)
 
-        setActiveStoryChapterID(id)
-        onChapterSelect(+storyIdx, +chapterIdx)
+        if (onChapterSelect) onChapterSelect(ownerID, id)
       }}
     >
       {chapter.name}
-    </ListItem>
+    </li>
   )
-  const createStory = (story: Story, storyIdx: number) => (
-    <React.Fragment key={storyIdx}>
-      <Accordion.Title
-        active={openedStoryIndex === storyIdx}
-        index={storyIdx}
-        onClick={storyClickHandler}
-      >
-        <Icon name="dropdown" /> {story.name}
-      </Accordion.Title>
-      <Accordion.Content active={openedStoryIndex === storyIdx}>
-        <List bulleted>
-          {story.chapters.map((chapter, chapterIdx) =>
-            createChapter(chapter, storyIdx + '-' + chapterIdx)
-          )}
-        </List>
-      </Accordion.Content>
-    </React.Fragment>
+
+  const createStory = (story: Story): React.ReactComponentElement<'li'> => (
+    <li key={story.id} onClick={(): void => setOpenedStoryID(story.id)}>
+      {story.name}
+      {story.id === openedStoryID ? (
+        <ul>{story.chapters.map(createChapter)}</ul>
+      ) : null}
+    </li>
   )
 
   return (
     <div className="sidebar">
       <h2>FusionBook</h2>
-      <Accordion>{stories.map(createStory)}</Accordion>
+      <SearchBar stories={stories} onSearch={(s): void => setYoStories(s)} />
+      <ul>{yoStories.map(createStory)}</ul>
     </div>
   )
 }

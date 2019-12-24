@@ -1,31 +1,40 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'es6': true
+  parser: '@typescript-eslint/parser',
+  env: {
+    browser: true,
+    es6: true,
+    node: true
   },
-  'extends': [
-    'standard',
-    'plugin:react/recommended'
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
   ],
-  'globals': {
-    'Atomics': 'readonly',
-    'SharedArrayBuffer': 'readonly'
+  parserOptions: {
+    ecmaFeatures: { jsx: true },
+    project: './tsconfig.json'
   },
-  'parserOptions': {
-    'ecmaFeatures': {
-      'jsx': true
-    },
-    'ecmaVersion': 2018,
-    'sourceType': 'module'
-  },
-  'plugins': [
-    'react'
-  ],
-  'rules': {
-  },
-  'settings': {
-    'react': {
-      'version': 'detect'
+  plugins: ['react', '@typescript-eslint'],
+  settings: {
+    react: {
+      version: 'detect'
     }
+  },
+  rules: {
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'none',
+          requireLast: false
+        },
+        singleline: {
+          delimiter: 'comma',
+          requireLast: false
+        }
+      }
+    ]
   }
-}
+};
