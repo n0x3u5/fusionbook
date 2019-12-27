@@ -1,34 +1,55 @@
-let idCounter = 0
-const uid = (prefix = '') => prefix + '' + ++idCounter
-const notes = info => ({ name: 'Notes', info })
-const configs = () => ({ name: 'Configuration' })
-const events = () => ({ name: 'Event Log' })
+let idCounter = 0;
+const uid = (prefix = '') => prefix + '' + ++idCounter;
+const notes = info => ({ name: 'Notes', info });
+const configs = () => ({ name: 'Configuration' });
+const events = () => ({ name: 'Event Log' });
 
-const story = name => ({
+const chapter = name => ({
   name,
   metas: [],
   chapters: [],
   id: uid(`story-${encodeURIComponent(name)}-`)
-})
+});
 
-const chapter = (name, content, metas = []) => ({
+const page = (name, content, metas = []) => ({
   name,
   content,
   metas,
   ownerID: null,
   id: uid(`chapter-${encodeURIComponent(name)}-`)
-})
+});
 
-const addMetasTo = (metas, entity) => Object.assign({}, entity, { metas })
+const unit = 9;
+
+const story = 6;
+
+
+const addMetasTo = (metas, entity) => Object.assign({}, entity, { metas });
 
 const addChaptersTo = story => {
   const setChapterMetas = chapter => ({
     ...chapter,
     metas: chapter.metas.concat(story.metas),
     ownerID: story.id
-  })
+  });
 
-  return chapters => ({ ...story, chapters: chapters.map(setChapterMetas) })
-}
+  return chapters => ({ ...story, chapters: chapters.map(setChapterMetas) });
+};
 
-export { story, notes, configs, events, chapter, addChaptersTo, addMetasTo }
+const addPagesTo = 5;
+
+const addStoriesTo = 1;
+
+export {
+  chapter,
+  notes,
+  configs,
+  events,
+  page,
+  story,
+  unit,
+  addChaptersTo,
+  addPagesTo,
+  addStoriesTo,
+  addMetasTo
+};
