@@ -1,14 +1,14 @@
-import * as React from 'react'
+import * as React from 'react';
 // import Story from '../fresco/fusion-story'
 
 class Story {
-  registerFactory (a, b) {}
-  addEventListener (a, b) {}
-  setData (a) {}
-  remove (a) {}
+  registerFactory(a: any, b: any): void { /* */ }
+  addEventListener(a: any, b: any): void { /* */ }
+  setData(a: any): void { /* */ }
+  remove(a: any): void { /* */ }
 }
 
-const { useEffect, useRef } = React
+const { useEffect, useRef } = React;
 
 const Renderer = ({
   type,
@@ -22,51 +22,51 @@ const Renderer = ({
   onDrawn: Function
   onEventTrigger: Function
   onConfigured: (config: object) => void
-}) => {
-  const mainRef = useRef(null)
+}): React.ReactComponentElement<'div'> => {
+  const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (type === 'html') {
-      content(mainRef.current)
-      const childAttrs = mainRef.current.children.length > 0
-        ? [...mainRef.current.children[0].attributes]
-        : []
-      onConfigured(
-        Object.fromEntries(
-          childAttrs.map(({ name, value }) => [name, value])
-        )
-      )
-      onDrawn()
-    } else {
-      let story = new Story()
+    const container = mainRef.current;
 
-      const { width, height } = mainRef.current.getBoundingClientRect()
-      story.registerFactory('content', content)
-      story.addEventListener('drawn', onDrawn)
-      story.addEventListener(
-        'childattached',
-        ({
-          data: { attachedChild }
-        }: {
-          data: { attachedChild }
-        }) => {
-          if (attachedChild.getType() !== 'animationManager') {
-            attachedChild.addEventListener('*', onEventTrigger)
-            onConfigured(attachedChild.config)
+    if (container) {
+      if (type === 'html') {
+        content(container);
+        const childAttrs =
+          container.children.length > 0
+            ? Array.from(container.children[0].attributes)
+            : [];
+        onConfigured(
+          Object.fromEntries(childAttrs.map(({ name, value }) => [name, value]))
+        );
+        onDrawn();
+      } else {
+        const story = new Story();
+        const { width, height } = container.getBoundingClientRect();
+
+        story.registerFactory('content', content);
+        story.addEventListener('drawn', onDrawn);
+        story.addEventListener(
+          'childattached',
+          ({ data: { attachedChild } }: { data: { attachedChild: any } }) => {
+            if (attachedChild.getType() !== 'animationManager') {
+              attachedChild.addEventListener('*', onEventTrigger);
+              onConfigured(attachedChild.config);
+            }
           }
-        }
-      )
-      story.setData({
-        id: 'main',
-        availableWidth: width,
-        availableHeight: height
-      })
+        );
+        story.setData({
+          id: 'main',
+          availableWidth: width,
+          availableHeight: height
+        });
 
-      return () => story.remove({ instant: false })
+        return (): void => story.remove({ instant: false });
+      }
     }
-  })
 
-  return <div ref={mainRef} className="main" id="main"></div>
-}
+  });
 
-export default Renderer
+  return <div ref={mainRef}></div>;
+};
+
+export default Renderer;

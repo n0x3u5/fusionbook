@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import stories from '../../stories/index';
-import TableOfContents from './components/react/table-of-contents';
 import './index.css';
+import Book from './components/react/book';
 
 const el = document.createElement('div');
 el.setAttribute('id', 'fusionbook-root');
@@ -17,5 +17,5 @@ document.body.appendChild(el);
 //   document.querySelector('#fusionbook-root')
 // );
 ReactDOM.createRoot(document.querySelector('#fusionbook-root')).render(
-  <TableOfContents stories={stories} onChapterSelect={console.log.bind(this)} />
+  <Book stories={stories} />
 );

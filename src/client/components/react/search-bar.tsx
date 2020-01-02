@@ -46,7 +46,14 @@ const SearchBar = ({
     if (onSearch) onSearch(matchingStories, value);
   };
 
-  return <input type="text" value={searchText} onChange={handleSearchChange} />;
+  return (
+    <input
+      placeholder="Search stories"
+      type="text"
+      value={searchText}
+      onChange={handleSearchChange}
+    />
+  );
 };
 
 export default SearchBar;

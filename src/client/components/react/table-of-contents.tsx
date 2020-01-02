@@ -6,34 +6,18 @@ const { useState } = React;
 
 const TableOfContents = ({
   stories,
+  activeStoryID,
+  activeChapterID,
   onChapterSelect
 }: {
   stories: ReadonlyArray<Story>
-  onChapterSelect?: (storyIdx: null | string, chapterIdx: string) => void
+  activeStoryID: string | null
+  activeChapterID: string | null
+  onChapterSelect?: (chapter: Chapter) => void
 }): React.ReactComponentElement<'div'> => {
-  const [yoStories, setYoStories] = useState(stories);
+  const [tocStories, setTOCStories] = useState(stories);
   const [isAllOpened, setIsAllOpened] = useState(false);
-  const [openedStoryID, setOpenedStoryID] = useState(
-    yoStories.length
-      ? yoStories[0].chapters.length
-        ? yoStories[0].chapters[0].ownerID
-        : null
-      : null
-  );
-  const [activeStoryID, setActiveStoryID] = useState(
-    yoStories.length
-      ? yoStories[0].chapters.length
-        ? yoStories[0].chapters[0].ownerID
-        : null
-      : null
-  );
-  const [activeChapterID, setActiveChapterID] = useState(
-    yoStories.length
-      ? yoStories[0].chapters.length
-        ? yoStories[0].chapters[0].id
-        : null
-      : null
-  );
+  const [openedStoryID, setOpenedStoryID] = useState(activeStoryID);
 
   const createChapter = (
     chapter: Chapter
@@ -46,12 +30,7 @@ const TableOfContents = ({
           : undefined
       }
       onClick={(): void => {
-        const { ownerID, id } = chapter;
-
-        setActiveStoryID(ownerID);
-        setActiveChapterID(id);
-
-        if (onChapterSelect) onChapterSelect(ownerID, id);
+        if (onChapterSelect) onChapterSelect(chapter);
       }}
     >
       {chapter.name}
@@ -61,25 +40,28 @@ const TableOfContents = ({
   const createStory = (story: Story): React.ReactComponentElement<'li'> => (
     <li key={story.id} onClick={(): void => setOpenedStoryID(story.id)}>
       {story.name}
-      {((story.id === openedStoryID) || isAllOpened) ? (
+      {story.id === openedStoryID || isAllOpened ? (
         <ul>{story.chapters.map(createChapter)}</ul>
       ) : null}
     </li>
   );
 
   return (
-    <div className="sidebar">
+    <div>
       <h2>FusionBook</h2>
-      <SearchBar stories={stories} onSearch={(s, t): void => {
-        if (t.length > 0) {
-          setIsAllOpened(true);
-        } else {
-          setIsAllOpened(false);
-        }
+      <SearchBar
+        stories={stories}
+        onSearch={(s, t): void => {
+          if (t.length > 0) {
+            setIsAllOpened(true);
+          } else {
+            setIsAllOpened(false);
+          }
 
-        setYoStories(s);
-      }} />
-      <ul>{yoStories.map(createStory)}</ul>
+          setTOCStories(s);
+        }}
+      />
+      <ul>{tocStories.map(createStory)}</ul>
     </div>
   );
 };

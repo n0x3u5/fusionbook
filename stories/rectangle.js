@@ -13,7 +13,12 @@ const addChaptersToRectangle = addChaptersTo(rectangleStory)
 
 const defaultsChapter = chapter(
   'with defaults',
-  story => { console.log(story) },
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Hello');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
   [notes('A default rectangle')]
 )
 

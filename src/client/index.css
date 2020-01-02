@@ -1,4 +1,8 @@
 .active {
   font-weight: bold;
-  padding: 1;
+}
+
+ul,
+li {
+  cursor: pointer;
 }

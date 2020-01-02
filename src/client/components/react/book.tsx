@@ -1,92 +1,64 @@
-import * as React from 'react'
-import { Story } from '../../../lib/story/index'
-import './book.css'
-import Renderer from './renderer'
-import MetaInfo from './meta-info'
-import TableOfContents from './table-of-contents'
+import * as React from 'react';
+import { Story } from '../../../lib/story/index';
+import Renderer from './renderer';
+// import MetaInfo from './meta-info'
+import TableOfContents from './table-of-contents';
+import useLocalStorage from './useLocalStorage';
 
-const { useState, useMemo, useRef } = React
+const { useState } = React
 
-const isMeta = (metaName: string): (({ name: string }) => boolean) => ({
-  name
+// const isMeta = (metaName: string): (({ name: string }) => boolean) => ({
+//   name
+// }: {
+//   name: string
+// }): boolean => name === metaName
+// const isMetaEventLog = isMeta('Event Log')
+// const isMetaConfiguration = isMeta('Configuration')
+
+const Book = ({
+  stories
 }: {
-  name: string
-}): boolean => name === metaName
-const isMetaEventLog = isMeta('Event Log')
-const isMetaConfiguration = isMeta('Configuration')
-
-const Book = ({ stories }: { stories: Story[] }) => {
-  const [activeStoryIdx, setActiveStoryIdx] = useState(0)
-  const [activeStoryChapterIdx, setActiveStoryChapterIdx] = useState(0)
-
-  const story = stories[activeStoryIdx].chapters[activeStoryChapterIdx]
-
-  const [metaContents, setMetaContents] = useState(story.metas)
-
-  const metaContentsRef = useRef(story.metas)
-
-  const id = '' + activeStoryIdx + activeStoryChapterIdx
-
-  const handleChapterSelect = (storyIdx: number, chapterIdx: number) => {
-    metaContentsRef.current = stories[storyIdx].chapters[chapterIdx].metas
-    setActiveStoryIdx(storyIdx)
-    setActiveStoryChapterIdx(chapterIdx)
-  }
-
-  const handleEventTrigger = e => {
-    let eventIndex = metaContentsRef.current.findIndex(isMetaEventLog)
-
-    if (eventIndex != null) {
-      const eventInfo = Object.assign({}, metaContentsRef.current[eventIndex])
-      eventInfo.info = Array.isArray(eventInfo.info)
-        ? [...eventInfo.info, e]
-        : [e]
-
-      metaContentsRef.current = metaContentsRef.current.map(
-        (meta, idx) => (idx === eventIndex ? eventInfo : meta)
-      )
-    }
-  }
-
-  const handleConfigured = config => {
-    let configIndex = metaContentsRef.current.findIndex(isMetaConfiguration)
-
-    if (configIndex != null) {
-      const configInfo = Object.assign({}, metaContentsRef.current[configIndex])
-      configInfo.info = config
-
-      metaContentsRef.current = metaContentsRef.current.map(
-        (meta, idx) => (idx === configIndex ? configInfo : meta)
-      )
-    }
-  }
-
-  const handleDrawn = () => setMetaContents(metaContentsRef.current)
+  stories: ReadonlyArray<Story>
+}): React.ReactElement => {
+  const [activeStoryID, setActiveStoryID] = useLocalStorage(
+    'activeStoryID',
+    stories.length
+      ? stories[0].chapters.length
+        ? stories[0].chapters[0].ownerID
+        : null
+      : null
+  );
+  const [activeChapterID, setActiveChapterID] = useLocalStorage(
+    'activeChapterID',
+    stories.length
+      ? stories[0].chapters.length
+        ? stories[0].chapters[0].id
+        : null
+      : null
+  );
 
   return (
-    <div className="page">
+    <>
       <TableOfContents
         stories={stories}
-        onChapterSelect={handleChapterSelect}
-      />
-      <div className="book-content">
-        {useMemo(
-          () => (
-            <Renderer
-              key={id}
-              type="html"
-              onDrawn={handleDrawn}
-              content={story.content}
-              onConfigured={handleConfigured}
-              onEventTrigger={handleEventTrigger}
-            />
-          ),
-          [id]
-        )}
-        <MetaInfo tabs={metaContents} />
-      </div>
-    </div>
-  )
-}
+        activeStoryID={activeStoryID}
+        activeChapterID={activeChapterID}
+        onChapterSelect={(chapter): void => {
+          const { ownerID, id } = chapter;
 
-export default Book
+          setActiveStoryID(ownerID);
+          setActiveChapterID(id);
+        }}
+      />
+      <Renderer
+        type="html"
+        content={stories[0].chapters[0].content}
+        onConfigured={console.log.bind(globalThis)}
+        onDrawn={console.log.bind(globalThis)}
+        onEventTrigger={console.log.bind(globalThis)}
+      />
+    </>
+  );
+};
+
+export default Book;
