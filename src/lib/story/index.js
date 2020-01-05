@@ -1,8 +1,18 @@
 let idCounter = 0;
 const uid = (prefix = '') => prefix + '' + ++idCounter;
-const notes = info => ({ name: 'Notes', info });
-const configs = () => ({ name: 'Configuration' });
-const events = () => ({ name: 'Event Log' });
+const notes = info => ({
+  info,
+  name: 'Notes',
+  id: uid(`meta-${encodeURIComponent('Notes')}-`)
+});
+const configs = () => ({
+  name: 'Configuration',
+  id: uid(`meta-${encodeURIComponent('Configuration')}-`)
+});
+const events = () => ({
+  name: 'Event Log',
+  id: uid(`meta-${encodeURIComponent('Event Log')}-`)
+});
 
 const story = name => ({
   name,
@@ -31,12 +41,5 @@ const addChaptersTo = story => {
   return chapters => ({ ...story, chapters: chapters.map(setChapterMetas) });
 };
 
-export {
-  chapter,
-  notes,
-  configs,
-  events,
-  story,
-  addChaptersTo,
-  addMetasTo
-};
+export { chapter, notes, configs, events, story, addChaptersTo, addMetasTo };
+

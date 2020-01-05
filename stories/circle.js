@@ -1,14 +1,13 @@
 import {
   notes,
   story,
-  events,
   chapter,
   configs,
   addMetasTo,
   addChaptersTo
 } from '../src/lib/story'
 
-const circleStory = addMetasTo([configs(), events()], story('Circle'))
+const circleStory = addMetasTo([configs()], story('Circle'))
 const addChaptersToCircle = addChaptersTo(circleStory)
 
 const defaultsChapter = chapter(

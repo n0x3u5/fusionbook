@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Story } from '../../../lib/story/index';
 import Renderer from './renderer';
-// import MetaInfo from './meta-info'
+import MetaInfo from './meta-info'
 import TableOfContents from './table-of-contents';
 import useLocalStorage from './useLocalStorage';
-
-const { useState } = React
 
 // const isMeta = (metaName: string): (({ name: string }) => boolean) => ({
 //   name
@@ -37,6 +35,11 @@ const Book = ({
       : null
   );
 
+  const activeStory = stories.find(story => story.id === activeStoryID);
+  const activeChapter = activeStory?.chapters.find(
+    chapter => chapter.id === activeChapterID
+  );
+  console.log(stories)
   return (
     <>
       <TableOfContents
@@ -50,13 +53,8 @@ const Book = ({
           setActiveChapterID(id);
         }}
       />
-      <Renderer
-        type="html"
-        content={stories[0].chapters[0].content}
-        onConfigured={console.log.bind(globalThis)}
-        onDrawn={console.log.bind(globalThis)}
-        onEventTrigger={console.log.bind(globalThis)}
-      />
+      <Renderer content={activeChapter?.content} />
+      <MetaInfo metas={activeChapter?.metas} />
     </>
   );
 };

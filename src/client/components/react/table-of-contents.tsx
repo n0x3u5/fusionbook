@@ -47,7 +47,7 @@ const TableOfContents = ({
   );
 
   return (
-    <div>
+    <div className="table-of-contents">
       <h2>FusionBook</h2>
       <SearchBar
         stories={stories}

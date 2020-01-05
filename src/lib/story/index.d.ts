@@ -1,6 +1,7 @@
 interface Meta {
-  name: string
-  info?: unknown
+  readonly id: string
+  readonly name: string
+  readonly info?: object
 }
 
 interface Entity {
@@ -51,5 +52,6 @@ export {
   addMetasTo,
   Story,
   Chapter,
-  Entity
+  Entity,
+  Meta
 }

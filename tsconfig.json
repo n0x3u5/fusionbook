@@ -7,6 +7,8 @@
     "sourceMap": true
   },
   "include": [
+    "**/stories/**/*.js",
+    "**/src/**/*.js",
     "**/src/**/*.ts",
     "**/src/**/*.tsx"
   ]

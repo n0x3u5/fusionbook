@@ -1,36 +1,57 @@
-import * as React from 'react'
-import { chromeDark, ObjectInspector } from 'react-inspector'
-import Tab from 'semantic-ui-react/dist/es/modules/Tab/Tab'
-import TabPane from 'semantic-ui-react/dist/es/modules/Tab/TabPane'
-import isObject from '../../../utils/is-object'
+import * as React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import { chromeLight, ObjectInspector } from 'react-inspector';
 import { Meta } from '../../../lib/story';
+import useLocalStorage from './useLocalStorage';
+import { isObject } from './utils';
 
-chromeDark.BASE_BACKGROUND_COLOR = '#434456'
-chromeDark.TREENODE_FONT_SIZE = '13px'
-chromeDark.TREENODE_LINE_HEIGHT = 1.4
+chromeLight.TREENODE_FONT_SIZE = '13px';
+chromeLight.TREENODE_LINE_HEIGHT = 1.4;
 
-const createInspectable = (info: unknown, i: number = 0) => (
-  <ObjectInspector theme={{ ...chromeDark }} data={info} key={i} />
-)
+const createInspectable = (info: object, i = 0): React.ReactElement => (
+  <ObjectInspector theme={{ ...chromeLight }} data={info} key={i} />
+);
 
-const displayable = (info: unknown) => {
+const displayable = (
+  info: object
+): React.ReactElement | Array<React.ReactElement> => {
   if (Array.isArray(info)) {
-    return info.map(createInspectable)
+    return info.map(createInspectable);
   } else if (isObject(info)) {
-    return createInspectable(info)
+    return createInspectable(info);
   } else {
-    return info
+    return <p>{info.toString()}</p>;
   }
-}
+};
 
-const createTabPanes = ({name, info} : { name: string, info: unknown }) => ({
-  menuItem: name,
-  render: () => <TabPane>{displayable(info)}</TabPane>
-})
+const MetaInfo = ({
+  metas = []
+}: {
+  metas?: ReadonlyArray<Meta>
+}): React.ReactComponentElement<'div'> => {
+  const [activeMetaID, setActiveMetaID] = useLocalStorage(
+    'activeMeta',
+    metas[0]?.id
+  );
+  const activeMeta = metas.find(meta => meta.id === activeMetaID);
 
-const MetaInfo = ({ tabs }: { tabs: Meta[] }) =>
-  tabs.length
-    ? <Tab panes={tabs.map(createTabPanes)} className="footer" />
-    : null
+  return (
+    <div className="meta-tabs">
+      <ul className="tab-list">
+        {metas.map((meta, idx) => (
+          <li
+            key={idx}
+            className={`${activeMetaID === meta.id ? 'active' : null}`}
+            onClick={(): void => setActiveMetaID(meta.id)}
+          >
+            {meta.name}
+          </li>
+        ))}
+      </ul>
+      <div className="tab-content">{displayable(activeMeta?.info ?? {})}</div>
+    </div>
+  );
+};
 
-export default MetaInfo
+export default MetaInfo;
