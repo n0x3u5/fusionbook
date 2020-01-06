@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { Chapter } from '../../../lib/story';
-import { noOp } from './utils';
 
 const { useEffect, useRef } = React;
 
 const Renderer = <T extends unknown>({
   chapter,
-  onConfigured = noOp
 }: {
   chapter: Chapter<T>
-  onConfigured?: object
 }): React.ReactComponentElement<'div'> => {
   const mainRef = useRef<HTMLDivElement>(null);
 
@@ -18,8 +15,6 @@ const Renderer = <T extends unknown>({
 
     if (container) {
       const chapterBase = chapter.createBase(container);
-
-      chapter.onConfigured(chapterBase)(onConfigured);
       chapter.content(chapterBase);
     }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import { chromeLight, ObjectInspector } from 'react-inspector';
-import { Meta } from '../../../lib/story';
+import { Meta, Chapter } from '../../../lib/story';
 import useLocalStorage from './useLocalStorage';
 import { isObject } from './utils';
 
@@ -25,14 +25,16 @@ const displayable = (
   }
 };
 
-const MetaInfo = ({
+const MetaInfo = <T extends unknown>({
+  chapter,
   metas = []
 }: {
-  metas?: ReadonlyArray<Meta>
+  chapter: Chapter<T>
+  metas: ReadonlyArray<Meta>
 }): React.ReactComponentElement<'div'> => {
   const [activeMetaID, setActiveMetaID] = useLocalStorage(
     'activeMeta',
-    metas[0]?.id
+    metas[0].id
   );
   const activeMeta = metas.find(meta => meta.id === activeMetaID);
 
@@ -49,7 +51,7 @@ const MetaInfo = ({
           </li>
         ))}
       </ul>
-      <div className="tab-content">{displayable(activeMeta?.info ?? {})}</div>
+      <div className="tab-content">{displayable(activeMeta?.extractInfo(chapter) ?? {})}</div>
     </div>
   );
 };

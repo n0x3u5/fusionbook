@@ -1,17 +1,14 @@
 let idCounter = 0;
 const uid = (prefix = '') => prefix + '' + ++idCounter;
 const notes = info => ({
-  info,
+  info: () => info,
   name: 'Notes',
   id: uid(`meta-${encodeURIComponent('Notes')}-`)
 });
 const configs = () => ({
+  info: base => base,
   name: 'Configuration',
   id: uid(`meta-${encodeURIComponent('Configuration')}-`)
-});
-const events = () => ({
-  name: 'Event Log',
-  id: uid(`meta-${encodeURIComponent('Event Log')}-`)
 });
 
 const story = name => ({
@@ -39,8 +36,7 @@ const html = chapter => ({
 
     return base;
   },
-  deleteBase: (base, root) => root.removeChild(base),
-  onConfigured: base => handler => handler(base)
+  deleteBase: (base, root) => root.removeChild(base)
 });
 
 const htmlChapter = (name, content, metas = []) =>
@@ -63,7 +59,6 @@ export {
   notes,
   htmlChapter,
   configs,
-  events,
   story,
   addChaptersTo,
   addMetasTo

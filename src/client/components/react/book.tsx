@@ -5,8 +5,6 @@ import Renderer from './renderer';
 import TableOfContents from './table-of-contents';
 import useLocalStorage from './useLocalStorage';
 
-const { useState, useMemo } = React;
-
 // const isMeta = (metaName: string): (({ name: string }) => boolean) => ({
 //   name
 // }: {
@@ -36,14 +34,11 @@ const Book = ({
         : null
       : null
   );
-  const [chapterConfig, setChapterConfig] = useState();
 
   const activeStory = stories.find(story => story.id === activeStoryID);
   const activeChapter = activeStory?.chapters.find(
     chapter => chapter.id === activeChapterID
   );
-
-  console.log(chapterConfig);
 
   return (
     <>
@@ -58,14 +53,10 @@ const Book = ({
           setActiveChapterID(id);
         }}
       />
-      {activeChapter &&
-        useMemo(
-          () => (
-            <Renderer chapter={activeChapter} onConfigured={setChapterConfig} />
-          ),
-          [activeChapterID]
-        )}
-      <MetaInfo metas={activeChapter?.metas} />
+      {activeChapter && <Renderer chapter={activeChapter} />}
+      {activeChapter && (
+        <MetaInfo chapter={activeChapter} metas={activeChapter?.metas} />
+      )}
     </>
   );
 };

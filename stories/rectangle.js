@@ -2,13 +2,12 @@ import {
   addChaptersTo,
   addMetasTo,
   configs,
-  events,
   htmlChapter,
   notes,
   story
 } from '../src/lib/story';
 
-const rectangleStory = addMetasTo([configs(), events()], story('Rectangle'));
+const rectangleStory = addMetasTo([configs()], story('Rectangle'));
 const addChaptersToRectangle = addChaptersTo(rectangleStory);
 
 const defaultsChapter = htmlChapter(

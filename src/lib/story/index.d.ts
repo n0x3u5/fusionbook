@@ -1,7 +1,7 @@
 interface Meta {
   readonly id: string
   readonly name: string
-  readonly info?: object
+  readonly info: <T>(base: T) => unknown
 }
 
 interface Entity {
@@ -18,7 +18,6 @@ interface Chapter<T> extends ChapterBasic {
   readonly content: (base: T) => void
   readonly createBase: (root: HTMLElement) => T
   readonly deleteBase: (base: T, root: HTMLElement) => void
-  readonly onConfigured: (base: T) => (config: object) => void
 }
 
 interface Story extends Entity {
@@ -54,13 +53,10 @@ declare const notes: (info: string) => Meta
 
 declare const configs: () => Meta
 
-declare const events: () => Meta
-
 export {
   story,
   notes,
   configs,
-  events,
   chapter,
   html,
   htmlChapter,
