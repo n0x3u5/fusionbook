@@ -13,14 +13,14 @@ const TableOfContents = ({
   stories: ReadonlyArray<Story>
   activeStoryID: string | null
   activeChapterID: string | null
-  onChapterSelect?: (chapter: Chapter) => void
+  onChapterSelect?: <T>(chapter: Chapter<T>) => void
 }): React.ReactComponentElement<'div'> => {
   const [tocStories, setTOCStories] = useState(stories);
   const [isAllOpened, setIsAllOpened] = useState(false);
   const [openedStoryID, setOpenedStoryID] = useState(activeStoryID);
 
-  const createChapter = (
-    chapter: Chapter
+  const createChapter = <T extends unknown>(
+    chapter: Chapter<T>
   ): React.ReactComponentElement<'li'> => (
     <li
       key={chapter.id}

@@ -29,6 +29,23 @@ const chapter = (name, content, metas = []) => ({
   id: uid(`chapter-${encodeURIComponent(name)}-`)
 });
 
+const html = chapter => ({
+  ...chapter,
+  createBase: root => {
+    const base = document.createElement('div');
+
+    base.setAttribute('class', '__fusionbook_base__');
+    root.appendChild(base);
+
+    return base;
+  },
+  deleteBase: (base, root) => root.removeChild(base),
+  onConfigured: base => handler => handler(base)
+});
+
+const htmlChapter = (name, content, metas = []) =>
+  html(chapter(name, content, metas));
+
 const addMetasTo = (metas, entity) => Object.assign({}, entity, { metas });
 
 const addChaptersTo = story => {
@@ -41,5 +58,13 @@ const addChaptersTo = story => {
   return chapters => ({ ...story, chapters: chapters.map(setChapterMetas) });
 };
 
-export { chapter, notes, configs, events, story, addChaptersTo, addMetasTo };
-
+export {
+  chapter,
+  notes,
+  htmlChapter,
+  configs,
+  events,
+  story,
+  addChaptersTo,
+  addMetasTo
+};

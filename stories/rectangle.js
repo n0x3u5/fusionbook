@@ -1,17 +1,17 @@
 import {
-  notes,
-  story,
-  events,
-  chapter,
-  configs,
+  addChaptersTo,
   addMetasTo,
-  addChaptersTo
-} from '../src/lib/story'
+  configs,
+  events,
+  htmlChapter,
+  notes,
+  story
+} from '../src/lib/story';
 
-const rectangleStory = addMetasTo([configs(), events()], story('Rectangle'))
-const addChaptersToRectangle = addChaptersTo(rectangleStory)
+const rectangleStory = addMetasTo([configs(), events()], story('Rectangle'));
+const addChaptersToRectangle = addChaptersTo(rectangleStory);
 
-const defaultsChapter = chapter(
+const defaultsChapter = htmlChapter(
   'with defaults',
   story => {
     const div = document.createElement('div');
@@ -20,22 +20,22 @@ const defaultsChapter = chapter(
     story.appendChild(div);
   },
   [notes('A default rectangle')]
-)
+);
 
-const smallSizeChapter = chapter(
-  'with a small size',
-  story => { console.log(story) },
-  [notes('A 30px by 30px rectangle')]
-)
+// const smallSizeChapter = chapter(
+//   'with a small size',
+//   story => { console.log(story) },
+//   [notes('A 30px by 30px rectangle')]
+// )
 
-const orangeChapter = chapter(
-  'with orange color',
-  story => { console.log(story) },
-  [notes('An orange rectangle')]
-)
+// const orangeChapter = chapter(
+//   'with orange color',
+//   story => { console.log(story) },
+//   [notes('An orange rectangle')]
+// )
 
 export default addChaptersToRectangle([
-  defaultsChapter,
-  smallSizeChapter,
-  orangeChapter
-])
+  defaultsChapter
+  // smallSizeChapter,
+  // orangeChapter
+]);
