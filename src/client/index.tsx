@@ -4,6 +4,10 @@ import stories from '../../stories/index';
 import './index.css';
 import Book from './components/react/book';
 
+import X from './components/fresco/fusion-story';
+
+console.log(new X());
+
 const el = document.createElement('div');
 el.setAttribute('id', 'fusionbook-root');
 document.body.appendChild(el);

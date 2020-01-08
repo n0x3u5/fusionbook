@@ -1,31 +1,46 @@
 import {
-  notes,
-  story,
-  chapter,
-  configs,
+  addChaptersTo,
   addMetasTo,
-  addChaptersTo
+  smartRendererConfigs,
+  smartRendererChapter,
+  smartRendererNotes,
+  story
 } from '../src/lib/story'
 
-const circleStory = addMetasTo([configs()], story('Circle'))
+const circleStory = addMetasTo([htmlConfigs()], story('Circle'))
 const addChaptersToCircle = addChaptersTo(circleStory)
 
-const defaultsChapter = chapter(
+const defaultsChapter = htmlChapter(
   'with defaults',
-  story => { console.log(story) },
-  [notes('A default circle')]
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Woah!');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
+  [htmlNotes('A default circle')]
 )
 
-const smallSizeChapter = chapter(
+const smallSizeChapter = htmlChapter(
   'with a medium size',
-  story => { console.log(story) },
-  [notes('A 100px by 100px circle')]
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Huh?');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
+  [htmlNotes('A 100px by 100px circle')]
 )
 
-const orangeChapter = chapter(
+const orangeChapter = htmlChapter(
   'with green color',
-  story => { console.log(story) },
-  [notes('An orange circle')]
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Walalla');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
+  [htmlNotes('An orange circle')]
 )
 
 export default addChaptersToCircle([

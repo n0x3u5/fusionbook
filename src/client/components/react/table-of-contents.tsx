@@ -39,7 +39,9 @@ const TableOfContents = ({
 
   const createStory = (story: Story): React.ReactComponentElement<'li'> => (
     <li key={story.id} onClick={(): void => setOpenedStoryID(story.id)}>
-      {story.name}
+      <span className={story.id === activeStoryID ? 'active' : undefined}>
+        {story.name}
+      </span>
       {story.id === openedStoryID || isAllOpened ? (
         <ul>{story.chapters.map(createChapter)}</ul>
       ) : null}

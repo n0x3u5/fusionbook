@@ -5,13 +5,7 @@ import Renderer from './renderer';
 import TableOfContents from './table-of-contents';
 import useLocalStorage from './useLocalStorage';
 
-// const isMeta = (metaName: string): (({ name: string }) => boolean) => ({
-//   name
-// }: {
-//   name: string
-// }): boolean => name === metaName
-// const isMetaEventLog = isMeta('Event Log')
-// const isMetaConfiguration = isMeta('Configuration')
+const { useState } = React;
 
 const Book = ({
   stories
@@ -23,17 +17,18 @@ const Book = ({
     stories.length
       ? stories[0].chapters.length
         ? stories[0].chapters[0].ownerID
-        : null
-      : null
+        : undefined
+      : undefined
   );
   const [activeChapterID, setActiveChapterID] = useLocalStorage(
     'activeChapterID',
     stories.length
       ? stories[0].chapters.length
         ? stories[0].chapters[0].id
-        : null
-      : null
+        : undefined
+      : undefined
   );
+  const [activeChapterBase, setActiveChapterBase] = useState();
 
   const activeStory = stories.find(story => story.id === activeStoryID);
   const activeChapter = activeStory?.chapters.find(
@@ -53,9 +48,13 @@ const Book = ({
           setActiveChapterID(id);
         }}
       />
-      {activeChapter && <Renderer chapter={activeChapter} />}
+      <Renderer chapter={activeChapter} readyHandler={setActiveChapterBase} />
       {activeChapter && (
-        <MetaInfo chapter={activeChapter} metas={activeChapter?.metas} />
+        <MetaInfo
+          key={activeChapterID}
+          chapter={activeChapter}
+          chapterBase={activeChapterBase}
+        />
       )}
     </>
   );

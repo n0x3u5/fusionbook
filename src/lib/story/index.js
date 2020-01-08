@@ -1,3 +1,5 @@
+import FusionStory from "../../client/components/fresco/fusion-story";
+
 let idCounter = 0;
 const uid = (prefix = '') => prefix + '' + ++idCounter;
 const notes = info => ({
@@ -5,11 +7,28 @@ const notes = info => ({
   name: 'Notes',
   id: uid(`meta-${encodeURIComponent('Notes')}-`)
 });
+const htmlNotes = notes;
+const smartRendererNotes = notes;
 const configs = () => ({
-  info: base => base,
   name: 'Configuration',
   id: uid(`meta-${encodeURIComponent('Configuration')}-`)
-});
+})
+const htmlConfigs = () => {
+  const basicCfg = configs();
+
+  return {
+    ...basicCfg,
+    info: base => base
+  }
+};
+const smartRendererConfigs = () => {
+  const basicCfg = configs();
+
+  return {
+    ...basicCfg,
+    info: base => base.config
+  }
+};
 
 const story = name => ({
   name,
@@ -36,11 +55,29 @@ const html = chapter => ({
 
     return base;
   },
-  deleteBase: (base, root) => root.removeChild(base)
+  deleteBase: (base, root) => root.removeChild(base),
+  onBaseReady: (base, handler) => { return handler(base); },
+  destroy: base => base.parentNode.removeChild(base)
 });
+
+const smartRenderer = chapter => ({
+  ...chapter,
+  createBase: root => {
+    const base = new FusionStory();
+
+    base.configure({ id: root.getAttribute('id') });
+
+    return base;
+  },
+  onBaseReady: (base, handler) => base.addEventListener('animationcomplete', handler),
+  destroy: base => base.remove()
+})
 
 const htmlChapter = (name, content, metas = []) =>
   html(chapter(name, content, metas));
+
+const smartRendererChapter = (name, content, metas = []) =>
+  smartRenderer(chapter(name, content, metas));
 
 const addMetasTo = (metas, entity) => Object.assign({}, entity, { metas });
 
@@ -54,12 +91,4 @@ const addChaptersTo = story => {
   return chapters => ({ ...story, chapters: chapters.map(setChapterMetas) });
 };
 
-export {
-  chapter,
-  notes,
-  htmlChapter,
-  configs,
-  story,
-  addChaptersTo,
-  addMetasTo
-};
+export { chapter, htmlNotes, htmlChapter, smartRendererChapter, smartRendererConfigs, smartRendererNotes, htmlConfigs, story, addChaptersTo, addMetasTo };

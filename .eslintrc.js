@@ -16,7 +16,7 @@ module.exports = {
     ecmaFeatures: { jsx: true },
     project: './tsconfig.json'
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
   settings: {
     react: {
       version: 'detect'
@@ -35,6 +35,8 @@ module.exports = {
           requireLast: false
         }
       }
-    ]
+    ],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   }
 };

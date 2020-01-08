@@ -1,7 +1,7 @@
 interface Meta {
   readonly id: string
   readonly name: string
-  readonly info: <T>(base: T) => unknown
+  readonly info: <T>(base: T) => object | string
 }
 
 interface Entity {
@@ -18,6 +18,8 @@ interface Chapter<T> extends ChapterBasic {
   readonly content: (base: T) => void
   readonly createBase: (root: HTMLElement) => T
   readonly deleteBase: (base: T, root: HTMLElement) => void
+  readonly onBaseReady: (base: T, handler: (base: T) => void) => void
+  readonly destroy: (base: T) => void
 }
 
 interface Story extends Entity {
@@ -49,14 +51,14 @@ declare const htmlChapter: (
   metas?: ReadonlyArray<Meta>
 ) => Chapter<HTMLElement>
 
-declare const notes: (info: string) => Meta
+declare const htmlNotes: (info: string) => Meta
 
-declare const configs: () => Meta
+declare const htmlConfigs: () => Meta
 
 export {
   story,
-  notes,
-  configs,
+  htmlNotes,
+  htmlConfigs,
   chapter,
   html,
   htmlChapter,

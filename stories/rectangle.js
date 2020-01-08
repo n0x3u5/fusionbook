@@ -1,13 +1,13 @@
 import {
   addChaptersTo,
   addMetasTo,
-  configs,
+  htmlConfigs,
   htmlChapter,
-  notes,
+  htmlNotes,
   story
 } from '../src/lib/story';
 
-const rectangleStory = addMetasTo([configs()], story('Rectangle'));
+const rectangleStory = addMetasTo([htmlConfigs()], story('Rectangle'));
 const addChaptersToRectangle = addChaptersTo(rectangleStory);
 
 const defaultsChapter = htmlChapter(
@@ -18,23 +18,33 @@ const defaultsChapter = htmlChapter(
     div.appendChild(textNode);
     story.appendChild(div);
   },
-  [notes('A default rectangle')]
+  [htmlNotes('A default rectangle')]
 );
 
-// const smallSizeChapter = chapter(
-//   'with a small size',
-//   story => { console.log(story) },
-//   [notes('A 30px by 30px rectangle')]
-// )
+const smallSizeChapter = htmlChapter(
+  'with a small size',
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Behold');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
+  [htmlNotes('A 30px by 30px rectangle')]
+)
 
-// const orangeChapter = chapter(
-//   'with orange color',
-//   story => { console.log(story) },
-//   [notes('An orange rectangle')]
-// )
+const orangeChapter = htmlChapter(
+  'with orange color',
+  story => {
+    const div = document.createElement('div');
+    const textNode = document.createTextNode('Unlimited Power');
+    div.appendChild(textNode);
+    story.appendChild(div);
+  },
+  [htmlNotes('An orange rectangle')]
+)
 
 export default addChaptersToRectangle([
-  defaultsChapter
-  // smallSizeChapter,
-  // orangeChapter
+  defaultsChapter,
+  smallSizeChapter,
+  orangeChapter
 ]);

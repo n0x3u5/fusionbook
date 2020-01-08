@@ -1,25 +1,26 @@
 import * as React from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import { chromeLight, ObjectInspector } from 'react-inspector';
-import { Meta, Chapter } from '../../../lib/story';
-import useLocalStorage from './useLocalStorage';
+import { chromeLight, Inspector } from 'react-inspector';
+import { Chapter } from '../../../lib/story';
 import { isObject } from './utils';
+
+const { useState } = React;
 
 chromeLight.TREENODE_FONT_SIZE = '13px';
 chromeLight.TREENODE_LINE_HEIGHT = 1.4;
 
 const createInspectable = (info: object, i = 0): React.ReactElement => (
-  <ObjectInspector theme={{ ...chromeLight }} data={info} key={i} />
+  <Inspector theme={{ ...chromeLight }} data={info} key={i} />
 );
 
 const displayable = (
-  info: object
+  info: object | string
 ): React.ReactElement | Array<React.ReactElement> => {
   if (Array.isArray(info)) {
     return info.map(createInspectable);
   } else if (isObject(info)) {
-    return createInspectable(info);
+    return createInspectable(info as object);
   } else {
     return <p>{info.toString()}</p>;
   }
@@ -27,13 +28,13 @@ const displayable = (
 
 const MetaInfo = <T extends unknown>({
   chapter,
-  metas = []
+  chapterBase
 }: {
   chapter: Chapter<T>
-  metas: ReadonlyArray<Meta>
+  chapterBase: T
 }): React.ReactComponentElement<'div'> => {
-  const [activeMetaID, setActiveMetaID] = useLocalStorage(
-    'activeMeta',
+  const { metas } = chapter;
+  const [activeMetaID, setActiveMetaID] = useState(
     metas[0].id
   );
   const activeMeta = metas.find(meta => meta.id === activeMetaID);
@@ -51,7 +52,7 @@ const MetaInfo = <T extends unknown>({
           </li>
         ))}
       </ul>
-      <div className="tab-content">{displayable(activeMeta?.extractInfo(chapter) ?? {})}</div>
+      <div className="tab-content">{displayable(activeMeta?.info(chapterBase) ?? {})}</div>
     </div>
   );
 };

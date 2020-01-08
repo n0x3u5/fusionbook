@@ -7,9 +7,11 @@
     "sourceMap": true
   },
   "include": [
+    "**/components/**/*.js",
     "**/stories/**/*.js",
     "**/src/**/*.js",
     "**/src/**/*.ts",
+    "**/src/**/*.d.ts",
     "**/src/**/*.tsx"
   ]
 }
