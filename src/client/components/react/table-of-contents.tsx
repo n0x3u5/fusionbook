@@ -50,7 +50,7 @@ const TableOfContents = ({
 
   return (
     <div className="table-of-contents">
-      <h2>FusionBook</h2>
+      <h2 className="title">FusionBook</h2>
       <SearchBar
         stories={stories}
         onSearch={(s, t): void => {

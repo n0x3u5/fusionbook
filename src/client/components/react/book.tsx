@@ -48,14 +48,16 @@ const Book = ({
           setActiveChapterID(id);
         }}
       />
-      <Renderer chapter={activeChapter} readyHandler={setActiveChapterBase} />
-      {activeChapter && (
-        <MetaInfo
-          key={activeChapterID}
-          chapter={activeChapter}
-          chapterBase={activeChapterBase}
-        />
-      )}
+      <div className="right-pane">
+        <Renderer chapter={activeChapter} readyHandler={setActiveChapterBase} />
+        {activeChapter && (
+          <MetaInfo
+            key={activeChapterID}
+            chapter={activeChapter}
+            chapterBase={activeChapterBase}
+          />
+        )}
+      </div>
     </>
   );
 };

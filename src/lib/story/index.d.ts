@@ -15,10 +15,14 @@ interface ChapterBasic extends Entity {
 }
 
 interface Chapter<T> extends ChapterBasic {
-  readonly content: (base: T) => void
+  readonly content: (base: T) => T
   readonly createBase: (root: HTMLElement) => T
   readonly deleteBase: (base: T, root: HTMLElement) => void
-  readonly onBaseReady: (base: T, handler: (base: T) => void) => void
+  readonly onBaseReady: (
+    content: T,
+    base: T,
+    handler: (base: T) => void
+  ) => void
   readonly destroy: (base: T) => void
 }
 
@@ -26,34 +30,33 @@ interface Story extends Entity {
   readonly chapters: ReadonlyArray<Chapter<unknown>>
 }
 
-declare const story: (name: string) => Story
+declare const story: (name: string) => Story;
 
 declare const addMetasTo: <Entity>(
   metas: ReadonlyArray<Meta>,
   entity: Entity
-) => Entity
+) => Entity;
 
 declare const addChaptersTo: (
   story: Story
-) => <T>(chapters: ReadonlyArray<Chapter<T>>) => Story
+) => <T>(chapters: ReadonlyArray<Chapter<T>>) => Story;
 
 declare const chapter: (
   name: string,
-  content: (story: HTMLElement) => unknown,
   metas?: ReadonlyArray<Meta>
-) => ChapterBasic
+) => ChapterBasic;
 
-declare const html: (chapter: ChapterBasic) => Chapter<HTMLElement>
+declare const html: (chapter: ChapterBasic) => Chapter<HTMLElement>;
 
 declare const htmlChapter: (
   name: string,
   content: (story: HTMLElement) => unknown,
   metas?: ReadonlyArray<Meta>
-) => Chapter<HTMLElement>
+) => Chapter<HTMLElement>;
 
-declare const htmlNotes: (info: string) => Meta
+declare const htmlNotes: (info: string) => Meta;
 
-declare const htmlConfigs: () => Meta
+declare const htmlConfigs: () => Meta;
 
 export {
   story,
@@ -69,4 +72,4 @@ export {
   ChapterBasic,
   Entity,
   Meta
-}
+};

@@ -48,6 +48,7 @@ const SearchBar = ({
 
   return (
     <input
+      className="search"
       placeholder="Search stories"
       type="text"
       value={searchText}

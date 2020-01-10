@@ -17,6 +17,8 @@ const defaultsChapter = htmlChapter(
     const textNode = document.createTextNode('Hello');
     div.appendChild(textNode);
     story.appendChild(div);
+
+    return div;
   },
   [htmlNotes('A default rectangle')]
 );
@@ -28,6 +30,8 @@ const smallSizeChapter = htmlChapter(
     const textNode = document.createTextNode('Behold');
     div.appendChild(textNode);
     story.appendChild(div);
+
+    return div;
   },
   [htmlNotes('A 30px by 30px rectangle')]
 )
@@ -39,6 +43,8 @@ const orangeChapter = htmlChapter(
     const textNode = document.createTextNode('Unlimited Power');
     div.appendChild(textNode);
     story.appendChild(div);
+
+    return div;
   },
   [htmlNotes('An orange rectangle')]
 )

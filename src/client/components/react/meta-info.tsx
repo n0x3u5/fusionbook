@@ -1,7 +1,6 @@
 import * as React from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 import { chromeLight, Inspector } from 'react-inspector';
+import * as ReactMarkdown from 'react-markdown';
 import { Chapter } from '../../../lib/story';
 import { isObject } from './utils';
 
@@ -22,7 +21,7 @@ const displayable = (
   } else if (isObject(info)) {
     return createInspectable(info as object);
   } else {
-    return <p>{info.toString()}</p>;
+    return <ReactMarkdown source={info.toString()}></ReactMarkdown>;
   }
 };
 

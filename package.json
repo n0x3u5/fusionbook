@@ -60,8 +60,9 @@
   },
   "dependencies": {
     "@fusioncharts/core": "^1.0.2",
-    "react": "0.0.0-experimental-f42431abe",
-    "react-dom": "0.0.0-experimental-f42431abe",
-    "react-inspector": "^2.3.1"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-inspector": "^2.3.1",
+    "react-markdown": "^4.3.1"
   }
 }

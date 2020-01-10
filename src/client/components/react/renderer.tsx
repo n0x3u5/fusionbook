@@ -18,8 +18,8 @@ const Renderer = <T extends unknown>({
 
     if (container && chapter) {
       const chapterBase = chapter.createBase(container);
-      chapter.content(chapterBase);
-      chapter.onBaseReady(chapterBase, readyHandler);
+      const content = chapter.content(chapterBase);
+      chapter.onBaseReady(chapterBase, content, readyHandler);
 
       return (): void => chapter.destroy(chapterBase);
     }
@@ -27,7 +27,7 @@ const Renderer = <T extends unknown>({
     return noOp;
   }, [mainRef, chapter, readyHandler]);
 
-  return <div ref={mainRef} className="renderer"></div>;
+  return <div ref={mainRef} id="main" className="renderer"></div>;
 };
 
 export default Renderer;

@@ -39,6 +39,8 @@ class FusionStory extends SmartRenderer {
 
     this.addToEnv('smartLabel', new SmartLabelManager(document.body));
     this.addToEnv('toolTipController', new TooltipController());
+    this.addToEnv('chartInstance', { args: {} });
+    this.addToEnv('core-options', {});
   }
 
   configureAttributes(config = {}) {

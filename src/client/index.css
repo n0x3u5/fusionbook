@@ -1,3 +1,13 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 .active {
   font-weight: bold;
 }
@@ -5,4 +15,75 @@
 ul,
 li {
   cursor: pointer;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+body {
+  margin: 0;
+}
+
+#fusionbook-root {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.table-of-contents {
+  padding: 0.5rem;
+  background-color: #b2ceea;
+  color: #22272d;
+  flex: 1;
+}
+
+.title {
+  text-align: center;
+}
+
+.search {
+  width: 100%;
+}
+
+.right-pane {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.renderer {
+  flex: 4;
+}
+
+.meta-tabs {
+  flex: 2;
+}
+
+.tab-list {
+  display: flex;
+  background-color: #79ace0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.tab-list > li {
+  padding: 0.5em;
+}
+
+.tab-list > li.active {
+  background-color: #424b54;
+  border-radius: 10% 10% 0% 0%;
+  color: #fff;
+}
+
+.tab-content {
+  max-height: 30vh;
+  overflow-y: scroll;
+  padding: 0.5em;
 }
